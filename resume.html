@@ -1,0 +1,398 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+    <title>履歴書・経歴書作成アプリ</title>
+	<style>
+        /* リセットCSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+		p1 {
+            color:blue;
+            text-decoration:underline;
+        }
+
+        h1 {
+			padding: 50px;
+		}
+
+        body {
+            text-align: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+            "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* フォーム行のレイアウト */
+        .form-row {
+
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .form-row:last-child {
+            border-bottom: none;
+        }
+
+        /* 左側のラベル部分 */
+        .form-label {
+            width: 200px;
+            min-width: 200px;
+            padding-right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label label {
+            font-weight: 500;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        /* 右側の入力欄部分 */
+        .form-input-group {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* 名前入力欄の横並び */
+        .name-input-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 20px;
+        }
+
+        .name-input-wrapper:last-child {
+            
+        }
+
+        .textbox {
+            width: 300px;
+            padding: 3px 7px;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+        }
+
+        .textbox:focus {
+            outline: 0;
+            border: 2px solid #2196f3;
+        }
+
+        .address_textbox {
+            width: 85px;
+        }
+
+        .name_textbox {
+            margin-right: 20px;
+        }
+
+        [type="number"]::-webkit-outer-spin-button, 
+        [type="number"]::-webkit-inner-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+        }
+
+        .textarea {
+            border-radius: 5px;
+            border: 2px solid #ccc;
+        }
+
+        .textarea:focus {
+            overflow: auto;
+        }
+
+	</style>
+</head>
+
+<body>
+    <div class="form-container">
+    <p1>戻る</p1>
+	<h1>履歴書作成</h1>
+    <!-- 個人情報作成欄 -->
+    <form action="/form.php" method="post">
+        <div class="form-row">
+                <!-- 名前（カタカナ）入力欄 -->
+            <div class="form-label">
+                <label for="last-name-kana">名前（カナ）</label>
+            </div>
+            <div class="form-input-group">
+                <div class="name-input-wrapper">
+                    <label for="name">セイ</label>
+                    <input 
+                        type="text" 
+                        id="last-name" 
+                        name="name" 
+                        class="textbox address_textbox name_textbox" 
+                        placeholder="例:ヤマダ">
+                </div>
+                <div class="name-input-wrapper">
+                    <label for="name">メイ</label>
+                    <input 
+                        type="text" 
+                        id="first-name" 
+                        name="name" 
+                        class="textbox address_textbox name_textbox" 
+                        placeholder="例:タロウ">
+                </div>
+            </div>
+            </div>
+            <div class="form-row">
+                <!-- 名前（漢字）入力欄 -->
+                <div class="form-label">
+                    <label for="last-name">名前（漢字）</label>
+                </div>
+                <div class="form-input-group">
+                    <div class="name-input-wrapper">
+                        <label for="name">姓</label>
+                        <input 
+                            type="text" 
+                            id="last-name" 
+                            name="name" 
+                            class="textbox address_textbox name_textbox" 
+                            placeholder="例:山田">
+                    </div>
+                    <div class="name-input-wrapper">
+                        <label for="name">名</label>
+                        <input 
+                            type="text" 
+                            id="first-name" 
+                            name="name" 
+                            class="textbox address_textbox name_textbox" 
+                            placeholder="例:太郎">
+                    </div>
+                </div>
+            </div>
+        <div class="form-row">
+            <!-- 性別選択欄 -->
+            <div class="form-label">
+                <label for="gender">性別</label>
+            </div>
+            <div class="form-input-group">
+                <input type="radio" name="gender" value="男"> 男
+                <input type="radio" name="gender" value="女" checked> 女
+            </div>
+        </div>
+        <div class="form-row">
+            <!-- 住所入力欄 -->
+            <div class="form-label">
+                <label for="address">住所</label>
+            </div>
+            <div class="form-input-group">
+                <label for="address">〒
+                <input 
+                    type="number" 
+                    id="searchAddressBox" 
+                    class = "textbox address_textbox" 
+                    placeholder="例:1638001(ﾊｲﾌﾝなし)" 
+                    onkeyup="inputAddressCheck ()">
+                </label>
+                <button type="button" onclick="searchAddress ()">探す</button>
+            </div>
+            <div id="checkAddress" ></div>
+            <div class="form-input-group">
+                <label for="address">住所
+                <input 
+                    type="text" 
+                    id="addressForm" 
+                    class = "textbox" 
+                    placeholder="例:松江市殿町">
+                </label>
+            </div>
+            <div class="form-input-group">
+                <label for="address">番地
+                <input 
+                    type="text" 
+                    class = "textbox" 
+                    placeholder="例:１番地">
+                </label>
+            </div>
+            </div>
+        <div class="form-row">
+            <!-- 電話番号入力欄 -->
+            <div class="form-label">
+                <label for="tel">電話番号</label>
+            </div>
+            <div class="form-input-group">
+                <input 
+                    type="number" 
+                    id="searchTelBox" 
+                    name="tell" 
+                    class="textbox" 
+                    placeholder="例:0123456789" 
+                    onkeyup="inputTelCheck ()">
+            </div>
+            <div id="checkTel"></div>
+        </div>
+        <div class="form-row">
+            <!-- メールアドレス入力欄 -->
+            <div class="form-label">
+                <label for="email">メールアドレス</label>
+            </div>
+            <div class="form-input-group">
+                <input 
+                    type="mail" 
+                    id="searchMailBox" 
+                    name="email" 
+                    class="textbox" 
+                    placeholder="例:sample@co.jp" 
+                    onkeyup="inputMailCheck ()">
+            </div>
+            <div id="checkMail"></div>
+        </div>
+
+        <!-- 学歴欄作成欄 -->
+        <h2>学歴</h2>
+        <div>
+            <!-- 学校名入力欄 -->
+            <label for="school_name">学校名</label>
+            <input type="text" id="school_name" name="school_name" class="textbox" placeholder="例:〇〇学校"></br> 
+            <!-- 学部学科名入力欄 -->
+            <label for="major_name">学部学科名</label>
+            <input type="text" id="major_name" name="major_name" class="textbox" placeholder="例:〇〇学部　〇〇学科"></br> 
+            <!-- 入学年月選択欄 -->
+            <label for="school_enroll">入学年月</label>
+            <input type="date"/></br> 
+            <!-- 卒業年月選択欄 -->
+            <label for="school_enroll">卒業年月</label>
+            <input type="date"/></br> 
+        </div>
+        <div>
+            <button id="add_School">入力欄を増やす</button>
+        </div>
+
+        <!-- 職歴欄作成欄 -->
+        <h2>職歴</h2>
+        <div>
+            <!-- 会社名入力欄 -->
+            <label for="company_name">会社名</label>
+            <input type="text" id="company_name" name="company_name" class="textbox" placeholder="例:〇〇株式会社"></br> 
+            <!-- 部署名入力欄 -->
+            <label for="branch_name">部署名</label>
+            <input type="text" id="branch_name" name="branch_name" class="textbox" placeholder="例:〇〇部"></br> 
+            <!-- 入社年月選択欄 -->
+            <label for="company_enroll">入社年月</label>
+            <input type="date"/></br> 
+            <!-- 卒業年月選択欄 -->
+            <label for="company_enroll">卒業年月</label>
+            <input type="date"/></br> 
+        </div>
+        <div>
+            <button id="add_Company">入力欄を増やす</button>
+        </div>
+
+        <!-- 資格など欄作成欄 -->
+        <h2>資格・免許</h2>
+        <div>
+            <!-- 資格などの名前入力欄 -->
+            <label for="Certification_name">資格・免許名</label>
+            <input type="text" id="Certification_name" name="Certification_name" class="textbox" placeholder="例:〇〇検定"></br> 
+            <!-- 取得／合格年月選択欄 -->
+            <label for="Certification_enroll">取得年月</label>
+            <input type="date"/></br> 
+        </div>
+        <div>
+            <button id="add_Company">入力欄を増やす</button>
+        </div>
+
+        <!-- 志望動機など作成欄 -->
+        <h2>志望動機・特技・好きな学科・アピールポイントなど</h2>
+        <div>
+            <!-- 志望動機など入力欄 -->
+            <textarea id="Motivation" name="Motivation" class="textarea"  rows="7" cols="50"></textarea></br> 
+        </div>
+
+        <!-- 本人希望など作成欄 -->
+        <h2>本人希望記入欄</h2>
+        <div>
+            <!-- 志望動機など入力欄 -->
+            <textarea id="wish" name="wish" class="textarea"  rows="7" cols="50"></textarea></br></br>
+        </div>
+
+        <!-- csv出力ボタン -->
+        <input type="submit" value="出力する">
+    </form>
+    </div>
+    
+	<script>
+        // 住所の入力エラー
+        async function searchAddress () {
+            const postalCode = document.getElementById("searchAddressBox").value;
+            const url = 'https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + postalCode;
+            const response = await fetch(url);
+            const data = await response.json();
+            if(!(data['results'])) {
+            document.getElementById( "checkAddress" ).innerHTML = '該当データなし';
+            } else {
+            const address = data['results'][0]['address1'] + data['results'][0]['address2'] + data['results'][0]['address3']
+            document.getElementById( "addressForm" ).value = address;
+            }
+        }
+
+        function inputAddressCheck() {
+            const inputValue = document.getElementById( "searchAddressBox" ).value;
+            if (!(inputValue.match(/^[0-9]+$/)) || !(inputValue.length === 7)) {
+            document.getElementById( "checkAddress" ).innerHTML = "<span style='color: red;'>半角数字7桁で入力してください！</span>";
+            } else {
+            document.getElementById( "checkAddress" ).innerHTML = '';
+            }
+        }
+
+        // 電話番号の入力エラー
+        function inputTelCheck() {
+            const inputValue = document.getElementById( "searchTelBox" ).value;
+            if (!(inputValue.match(/^[0-9]+$/)) || !(inputValue.length === 11)) {
+            document.getElementById( "checkTel" ).innerHTML = "<span style='color: red;'>半角数字11桁で入力してください！</span>";
+            } else {
+            document.getElementById( "checkTel" ).innerHTML = '';
+            }
+        }
+
+        // メールアドレスの入力エラー
+        function inputMailCheck() {
+            const inputValue = document.getElementById( "searchMailBox" ).value;
+            if (!inputValue.match(/.+@.+\..+/)) {
+            document.getElementById( "checkMail" ).innerHTML = "<span style='color: red;'>正しいメールアドレスを入力してください！</span>";
+            } else {
+            document.getElementById( "checkMail" ).innerHTML = '';
+            }
+        }
+
+        document.querySelector('button').addEventListener('click', () => {
+            // 新しい label 要素を作成
+            const newLabel = document.createElement('label');
+            newLabel.textContent = '連絡事項：'; // ラベルのテキストを設定
+
+            // 新しい input 要素を作成
+            const newInput = document.createElement('input');
+            newInput.type = 'text'; // input のタイプをテキストに設定
+
+            // ラベルの中に input を追加
+            newLabel.appendChild(newInput);
+
+            // div の中にラベルを追加
+            document.querySelector('div').appendChild(newLabel);
+        });
+
+	</script>
+</body>
+
+</html>
