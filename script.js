@@ -1,3 +1,4 @@
+// 履歴書の入力画面
 // 住所の入力エラー
 async function searchAddress () {
     const postalCode = document.getElementById("searchAddressBox").value;
@@ -41,6 +42,19 @@ function inputMailCheck() {
     }
 }
 
+// 画像取得
+document.getElementById('imageInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file && file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      document.getElementById('preview').src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+//欄の追加
 document.querySelector('button').addEventListener('click', () => {
     // 新しい label 要素を作成
     const newLabel = document.createElement('label');
