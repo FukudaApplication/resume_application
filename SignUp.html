@@ -1,0 +1,41 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css" />
+	<title>履歴書・経歴書作成アプリ</title>
+</head>
+
+<body>
+	<h1>新規登録</h1>
+
+	<a href="index.html">戻る</a>
+
+	<p>メールアドレス</p>
+    <input 
+        type="text" 
+        id="username" 
+        class="textbox" 
+        placeholder="sample@co.jp">
+    <p>パスワード</p>
+    <input 
+        type="password" 
+        id="pass" 
+        class="textbox" >
+    <br>
+    <input 
+        type="checkbox" 
+        id="showpassword" 
+        onchange="showOrHide()" 
+        class="margin">
+        <span>パスワードを表示する</span>
+        <br>
+        <input 
+            type="button" 
+            value="新規登録する" 
+            class="button margin" 
+            onclick="signUp()">
+	<script src="script.js"></script>
+</body>
+
+</html>
