@@ -1,3 +1,31 @@
+// ログイン処理
+document.getElementById("loginForm").addEventListener("click", async (e) => {
+    e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    // Supabaseでログイン
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (error) {
+      // エラーが発生した場合
+      errorMessage.textContent = error.message;
+      errorMessage.classList.add("show");
+    } else {
+      // ログイン成功
+      window.location.href = "index.html";
+    }
+  } catch (err) {
+    errorMessage.textContent = "ログインに失敗しました。";
+    errorMessage.classList.add("show");
+  }
+});
+
 // 履歴書の入力画面
 // 住所の入力エラー
 async function searchAddress () {
@@ -43,30 +71,5 @@ function inputMailCheck() {
 }
 
 // 画像取得
-document.getElementById('imageInput').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (file && file.type.startsWith('image/')) {
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      document.getElementById('preview').src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-});
 
 //欄の追加
-document.querySelector('button').addEventListener('click', () => {
-    // 新しい label 要素を作成
-    const newLabel = document.createElement('label');
-    newLabel.textContent = '連絡事項：'; // ラベルのテキストを設定
-
-    // 新しい input 要素を作成
-    const newInput = document.createElement('input');
-    newInput.type = 'text'; // input のタイプをテキストに設定
-
-    // ラベルの中に input を追加
-    newLabel.appendChild(newInput);
-
-    // div の中にラベルを追加
-    document.querySelector('div').appendChild(newLabel);
-});

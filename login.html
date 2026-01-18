@@ -11,31 +11,35 @@
 
 	<a href="index.html">戻る</a>
 
-    <p>メールアドレス</p>
-    <input 
-        type="text" 
-        id="username" 
-        class="textbox" 
-        placeholder="sample@co.jp">
-    <p>パスワード</p>
-    <input 
-        type="password" 
-        id="pass" 
-        class="textbox" >
-    <br>
-    <input 
-        type="checkbox" 
-        id="showpassword" 
-        onchange="showOrHide()" 
-        class="margin">
-        <span>パスワードを表示する</span>
-        <br>
-        <a href="index.html">パスワードを忘れてしまった方はこちら</a>
+    <form id="loginForm">
+        <p>メールアドレス</p>
         <input 
-            type="button" 
-            value="ログイン" 
-            class="button margin" 
-            onclick="signIn()">
+            type="text" 
+            id="email" 
+            class="email" 
+            placeholder="sample@co.jp">
+        <p>パスワード</p>
+        <input 
+            type="password" 
+            id="password" 
+            class="password" >
+        <br>
+        <input 
+            type="checkbox" 
+            id="showpassword" 
+            onchange="showOrHide()" 
+            class="margin">
+            <span>パスワードを表示する</span>
+            <br>
+            <a href="index.html">パスワードを忘れてしまった方はこちら</a>
+            <br>
+            <input 
+                type="button" 
+                value="ログイン" 
+                id="submit"
+                class="button margin" >
+            <div id="errorMessage"></div>
+    </form>
 	<script src="script.js"></script>
 </body>
 
