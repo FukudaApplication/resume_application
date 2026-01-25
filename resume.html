@@ -160,7 +160,7 @@
             <label for="educationNote">備考</label>
             <input
             type="text"
-            class="education-note"
+            class="textbox"
             name="educationNote[]"
             placeholder="例：中退など"
             />
@@ -192,7 +192,7 @@
             <label for="workNote">備考</label>
             <input
             type="text"
-            class="work-note"
+            class="textbox"
             name="workNote[]"
             placeholder="例：転籍など"
             />
@@ -208,21 +208,21 @@
 
         <!-- 資格など欄作成欄 -->
         <h2>資格・免許</h2>
-        <div>
+        <div id="CertificationList">
             <!-- 資格などの名前入力欄 -->
             <label for="Certification_name">資格・免許名</label>
             <input type="text" id="Certification_name" name="Certification_name" class="textbox" placeholder="例:〇〇検定"></br> 
             <!-- 取得／合格年月選択欄 -->
             <label for="Certification_enroll">取得年月</label>
             <input type="date"/></br> 
-        </div>
-        <label for="CertificationNote">備考</label>
+            <label for="CertificationNote">備考</label>
             <input
             type="text"
-            class="certification-note"
+            class="textbox"
             name="certificationNote[]"
             placeholder="例：合格、取得など"
             />
+        </div>
         <div>
             <button 
             type="button" 

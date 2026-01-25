@@ -107,3 +107,116 @@ function inputMailCheck() {
 // 画像取得
 
 //欄の追加
+// 学歴アイテムを追加する関数
+function addEducationItem() {
+  const educationList = document.getElementById("educationList");
+  const newItem = document.createElement("div");
+  newItem.className = "education-item";
+  newItem.innerHTML = `
+        <!-- 学校名入力欄 -->
+            <label for="school_name">学校名</label>
+            <input type="text" id="school_name" name="school_name" class="textbox" placeholder="例:〇〇学校"></br> 
+            <!-- 学部学科名入力欄 -->
+            <label for="major_name">学部学科名</label>
+            <input type="text" id="major_name" name="major_name" class="textbox" placeholder="例:〇〇学部　〇〇学科"></br> 
+            <!-- 入学年月選択欄 -->
+            <label for="school_enroll">入学年月</label>
+            <input type="date"/></br> 
+            <!-- 卒業年月選択欄 -->
+            <label for="school_enroll">卒業年月</label>
+            <input type="date"/></br> 
+            <label for="educationNote">備考</label>
+            <input
+            type="text"
+            class="textbox"
+            name="educationNote[]"
+            placeholder="例：中退など"
+            /></br>
+        <button type="button" class="btn-remove" onclick="removeEducationItem(this)">削除</button></br>
+    `;
+  educationList.appendChild(newItem);
+}
+
+// 学歴アイテムを削除する関数
+function removeEducationItem(button) {
+  const educationList = document.getElementById("educationList");
+  if (educationList.children.length > 1) {
+    button.closest(".education-item").remove();
+  } else {
+    alert("最低1つの学歴項目が必要です。");
+  }
+}
+
+// 職歴アイテムを追加する関数
+function addWorkItem() {
+  const workList = document.getElementById("workList");
+  const newItem = document.createElement("div");
+  newItem.className = "work-item";
+  newItem.innerHTML = `
+        <!-- 会社名入力欄 -->
+            <label for="company_name">会社名</label>
+            <input type="text" id="company_name" name="company_name" class="textbox" placeholder="例:〇〇株式会社"></br> 
+            <!-- 部署名入力欄 -->
+            <label for="branch_name">部署名</label>
+            <input type="text" id="branch_name" name="branch_name" class="textbox" placeholder="例:〇〇部"></br> 
+            <!-- 入社年月選択欄 -->
+            <label for="company_enroll">入社年月</label>
+            <input type="date"/></br> 
+            <!-- 退社年月選択欄 -->
+            <label for="company_enroll">退社年月</label>
+            <input type="date"/></br>
+            <label for="workNote">備考</label>
+            <input
+            type="text"
+            class="textbox"
+            name="workNote[]"
+            placeholder="例：転籍など"
+            /></br>
+        <button type="button" class="btn-remove" onclick="removeWorkItem(this)">削除</button></br>
+    `;
+  workList.appendChild(newItem);
+}
+
+// 職歴アイテムを削除する関数
+function removeWorkItem(button) {
+  const workList = document.getElementById("workList");
+  if (workList.children.length > 1) {
+    button.closest(".work-item").remove();
+  } else {
+    alert("最低1つの職歴項目が必要です。");
+  }
+}
+
+// 資格アイテムを追加する関数
+function addCertificationItem() {
+  const workList = document.getElementById("CertificationList");
+  const newItem = document.createElement("div");
+  newItem.className = "certification-item";
+  newItem.innerHTML = `
+        <!-- 資格などの名前入力欄 -->
+            <label for="Certification_name">資格・免許名</label>
+            <input type="text" id="Certification_name" name="Certification_name" class="textbox" placeholder="例:〇〇検定"></br> 
+            <!-- 取得／合格年月選択欄 -->
+            <label for="Certification_enroll">取得年月</label>
+            <input type="date"/></br> 
+            <label for="CertificationNote">備考</label>
+            <input
+            type="text"
+            class="textbox"
+            name="certificationNote[]"
+            placeholder="例：合格、取得など"
+            /></br>
+        <button type="button" class="btn-remove" onclick="removeCertificationItem(this)">削除</button></br>
+    `;
+  workList.appendChild(newItem);
+}
+
+// 資格アイテムを削除する関数
+function removeCertificationItem(button) {
+  const certificationList = document.getElementById("CertificationList");
+  if (certificationList.children.length > 1) {
+    button.closest(".certification-item").remove();
+  } else {
+    alert("最低1つの職歴項目が必要です。");
+  }
+}
