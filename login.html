@@ -1,42 +1,93 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ログイン - 履歴書作成アプリ</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h1 style="margin-bottom: 30px">
+        履歴書作成アプリ
+      </h1>
+      <h2 style="text-align: center; margin-bottom: 30px">ログイン</h2>
 
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css" />
-	<title>履歴書・経歴書作成アプリ</title>
-</head>
+      <form id="loginForm" class="login-form">
+        <div>
+          <label for="email">メールアドレス</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@mail.com"
+            required
+          />
+        </div>
+        <div>
+          <label for="password">パスワード</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="パスワードを入力"
+            required
+          />
+        </div>
+        <div id="errorMessage" class="error-message"></div>
+        <button type="submit">ログイン</button>
+      </form>
 
-<body>
-	<h1>ログイン画面</h1>
+      <div class="signup-link">
+        アカウントをお持ちでない方は
+        <a href="signup.html">新規登録</a>
+      </div>
+    </div>
 
-	<a href="index.html">戻る</a>
+    <!-- Supabase JSライブラリ -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 設定ファイル -->
+    <script src="config.js"></script>
+    <!-- 認証用JavaScript -->
+    <script src="auth.js"></script>
+    <script>
+      // ログインフォームの処理
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-    <p>メールアドレス</p>
-    <input 
-        type="text" 
-        id="username" 
-        class="textbox" 
-        placeholder="sample@co.jp">
-    <p>パスワード</p>
-    <input 
-        type="password" 
-        id="pass" 
-        class="textbox" >
-    <br>
-    <input 
-        type="checkbox" 
-        id="showpassword" 
-        onchange="showOrHide()" 
-        class="margin">
-        <span>パスワードを表示する</span>
-        <br>
-        <a href="index.html">パスワードを忘れてしまった方はこちら</a>
-        <input 
-            type="button" 
-            value="ログイン" 
-            class="button margin" 
-            onclick="signIn()">
-	<script src="script.js"></script>
-</body>
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const errorMessage = document.getElementById("errorMessage");
 
+          // エラーメッセージを非表示
+          errorMessage.classList.remove("show");
+          errorMessage.textContent = "";
+
+          try {
+            // Supabaseでログイン
+            const { data, error } =
+              await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password,
+              });
+
+            if (error) {
+              // エラーが発生した場合
+              errorMessage.textContent = error.message;
+              errorMessage.classList.add("show");
+            } else {
+              // ログイン成功
+              // セッション情報を保存（auth.jsで自動的に処理される）
+              window.location.href = "index.html";
+            }
+          } catch (err) {
+            // 予期しないエラー
+            errorMessage.textContent = "ログインに失敗しました。";
+            errorMessage.classList.add("show");
+          }
+        });
+    </script>
+  </body>
 </html>

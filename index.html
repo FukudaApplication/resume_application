@@ -1,23 +1,61 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>履歴書・経歴書作成アプリ</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>履歴書・経歴書作成アプリ</h1>
+    <div class="wrap">
+        <a href="resume.html" class="make_button">履歴書を作る</a>
+        <a href="#" class="make_button">経歴書を作る</a>
+      </div>
+        <button
+          id="logoutBtn"
+          style="
+            padding: 10px 20px;
+            background: #95a5a6;
+            color: white;
+            border: 3px solid #2f3542;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+          "
+        >
+          ログアウト
+        </button>
+      </div>
 
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css" />
-	<title>履歴書・経歴書作成アプリ</title>
-</head>
+    <!-- Supabase JSライブラリ -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 設定ファイル -->
+    <script src="config.js"></script>
+    <!-- 認証用JavaScript -->
+    <script src="auth.js"></script>
+    <!-- メインのJavaScript -->
+    <script src="script.js"></script>
+    <script>
+      // ページ読み込み時に認証チェック
+      (async function () {
+        const isAuthenticated = await checkAuth();
+        if (!isAuthenticated) {
+          // ログインしていない場合はログインページにリダイレクト
+          window.location.href = "login.html";
+        }
+        })();
 
-<body>
-	<h1>履歴書・経歴書作成アプリ</h1>
-
-	<div class="auth-check">
-		<a href="SignUp.html" class="button">新規作成</a>
-		<a href="login.html" class="button">ログイン</a>
-	</div>
-	<div class="wrap">
-      <a href="resume.html" class="make_button">履歴書を作る</a>
-      <a href="#" class="make_button">経歴書を作る</a>
-  	</div>
-	<script src="script.js"></script>
-</body>
-
+        // ログアウトボタンの処理
+        document
+          .getElementById("logoutBtn")
+          .addEventListener("click", async () => {
+            const success = await logout();
+            if (success) {
+              window.location.href = "login.html";
+            }
+          });
+      
+    </script>
+  </body>
 </html>

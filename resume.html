@@ -144,7 +144,7 @@
 
         <!-- 学歴欄作成欄 -->
         <h2>学歴</h2>
-        <div>
+        <div id="educationList">
             <!-- 学校名入力欄 -->
             <label for="school_name">学校名</label>
             <input type="text" id="school_name" name="school_name" class="textbox" placeholder="例:〇〇学校"></br> 
@@ -157,14 +157,26 @@
             <!-- 卒業年月選択欄 -->
             <label for="school_enroll">卒業年月</label>
             <input type="date"/></br> 
+            <label for="educationNote">備考</label>
+            <input
+            type="text"
+            class="education-note"
+            name="educationNote[]"
+            placeholder="例：中退など"
+            />
         </div>
         <div>
-            <button id="add_School">入力欄を増やす</button>
+            <button 
+            type="button" 
+            class="btn-add" 
+            onclick="addEducationItem()">
+            入力欄を増やす
+            </button>
         </div>
 
         <!-- 職歴欄作成欄 -->
         <h2>職歴</h2>
-        <div>
+        <div id="workList">
             <!-- 会社名入力欄 -->
             <label for="company_name">会社名</label>
             <input type="text" id="company_name" name="company_name" class="textbox" placeholder="例:〇〇株式会社"></br> 
@@ -174,12 +186,24 @@
             <!-- 入社年月選択欄 -->
             <label for="company_enroll">入社年月</label>
             <input type="date"/></br> 
-            <!-- 卒業年月選択欄 -->
-            <label for="company_enroll">卒業年月</label>
-            <input type="date"/></br> 
+            <!-- 退社年月選択欄 -->
+            <label for="company_enroll">退社年月</label>
+            <input type="date"/></br>
+            <label for="workNote">備考</label>
+            <input
+            type="text"
+            class="work-note"
+            name="workNote[]"
+            placeholder="例：転籍など"
+            />
         </div>
         <div>
-            <button id="add_Company">入力欄を増やす</button>
+            <button 
+            type="button" 
+            class="btn-add" 
+            onclick="addWorkItem()">
+            入力欄を増やす
+            </button>
         </div>
 
         <!-- 資格など欄作成欄 -->
@@ -192,8 +216,20 @@
             <label for="Certification_enroll">取得年月</label>
             <input type="date"/></br> 
         </div>
+        <label for="CertificationNote">備考</label>
+            <input
+            type="text"
+            class="certification-note"
+            name="certificationNote[]"
+            placeholder="例：合格、取得など"
+            />
         <div>
-            <button id="add_Company">入力欄を増やす</button>
+            <button 
+            type="button" 
+            class="btn-add" 
+            onclick="addCertificationItem()">
+            入力欄を増やす
+            </button>
         </div>
 
         <!-- 志望動機など作成欄 -->

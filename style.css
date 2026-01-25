@@ -12,6 +12,17 @@ font-weight: bold;
 font-size: 14px;
 }
 
+.error-message {
+color: #ff4757;
+padding: 10px;
+border-radius: 8px;
+display: none;
+}
+
+.error-message.show {
+display: block;
+}
+
 .wrap {
 position: absolute;
 top: 50%;
