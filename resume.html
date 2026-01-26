@@ -19,19 +19,19 @@
             </div>
             <div class="form-input-group">
                 <div class="name-input-wrapper">
-                    <label for="name">セイ</label>
+                    <label for="last-name-katakana">セイ</label>
                     <input 
                         type="text" 
-                        id="last-name" 
+                        id="last-name-katakana" 
                         name="name" 
                         class="textbox address_textbox name_textbox" 
                         placeholder="例:ヤマダ">
                 </div>
                 <div class="name-input-wrapper">
-                    <label for="name">メイ</label>
+                    <label for="first-name-katakana">メイ</label>
                     <input 
                         type="text" 
-                        id="first-name" 
+                        id="first-name-katakana" 
                         name="name" 
                         class="textbox address_textbox name_textbox" 
                         placeholder="例:タロウ">
@@ -45,25 +45,34 @@
                 </div>
                 <div class="form-input-group">
                     <div class="name-input-wrapper">
-                        <label for="name">姓</label>
+                        <label for="last-name-kanzi">姓</label>
                         <input 
                             type="text" 
-                            id="last-name" 
+                            id="last-name-kanzi" 
                             name="name" 
                             class="textbox address_textbox name_textbox" 
                             placeholder="例:山田">
                     </div>
                     <div class="name-input-wrapper">
-                        <label for="name">名</label>
+                        <label for="first-name-kanzi">名</label>
                         <input 
                             type="text" 
-                            id="first-name" 
+                            id="first-name-kanzi" 
                             name="name" 
                             class="textbox address_textbox name_textbox" 
                             placeholder="例:太郎">
                     </div>
                 </div>
             </div>
+         <div class="form-row">
+            <!-- 生年月日欄 -->
+            <div class="form-label">
+                <label for="birth">生年月日</label>
+            </div>
+            <div class="form-input-group">
+                <input type="date" value="2017-06-01" >
+            </div>
+        </div>
         <div class="form-row">
             <!-- 性別選択欄 -->
             <div class="form-label">
@@ -80,7 +89,7 @@
                 <label for="address">住所</label>
             </div>
             <div class="form-input-group">
-                <label for="address">〒
+                <label for="searchAddressBox">〒
                 <input 
                     type="number" 
                     id="searchAddressBox" 
@@ -101,10 +110,11 @@
                 </label>
             </div>
             <div class="form-input-group">
-                <label for="address">番地
+                <label for="banti">番地
                 <input 
                     type="text" 
-                    class = "textbox" 
+                    class = "textbox"
+                    if = "banti" 
                     placeholder="例:１番地">
                 </label>
             </div>
@@ -112,7 +122,7 @@
         <div class="form-row">
             <!-- 電話番号入力欄 -->
             <div class="form-label">
-                <label for="tel">電話番号</label>
+                <label for="searchTelBox">電話番号</label>
             </div>
             <div class="form-input-group">
                 <input 
@@ -128,7 +138,7 @@
         <div class="form-row">
             <!-- メールアドレス入力欄 -->
             <div class="form-label">
-                <label for="email">メールアドレス</label>
+                <label for="searchMailBox">メールアドレス</label>
             </div>
             <div class="form-input-group">
                 <input 
@@ -142,7 +152,10 @@
             <div id="checkMail"></div>
         </div>
         <div class="form-row">
-            <input id="inputFiletype" type="file" accept="image/*">
+            <input 
+                id="imageInput" 
+                type="file" 
+                accept="image/*">
         </div>
 
         <!-- 学歴欄作成欄 -->
