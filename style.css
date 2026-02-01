@@ -1,3 +1,40 @@
+/* ログインページなどのスタイル */
+.loginForm {
+    width: fit-content;
+    margin: auto;
+    padding-top: 75px;
+}
+
+.loginForm table {
+    border-collapse: separate;
+    border-spacing: 16px 0;
+    width: 600px;
+}
+
+.loginForm th {
+    text-align: left;
+    vertical-align:top;
+    width: 150px;
+}
+
+.loginForm td {
+    width: 400px;
+}
+
+table tr + tr th,
+table tr + tr td {
+padding-top: 16px; 
+}
+
+.signup-link {
+    margin-left: 80px;
+    width: 600px;
+}
+
+#loginButton {
+    margin-left: 250px;
+}
+
 h1 {
     text-align: center;
     padding: 100px;

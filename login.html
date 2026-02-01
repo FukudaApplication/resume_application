@@ -4,6 +4,153 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ログイン - 履歴書作成アプリ</title>
+    <style>
+      * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; /* スクロールバーを非表示 */
+        }
+
+      input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid;
+        border-radius: 25px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      input:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(255, 192, 203, 0.5);
+      }
+
+      button {
+        margin: 20px auto;
+        display: block;
+        width: 100%;
+        max-width: 250px;
+        padding: .5em 2em;
+        border: none;
+        border-radius: 5px;
+        background-color: #2589d0;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1em;
+      }
+
+      button:hover {
+        animation: anima-button-41 2s linear infinite;
+      }
+
+      @keyframes anima-button-41 {
+        7% {
+          transform: translateY(-15px);
+        }
+        15% {
+          transform: translateY(0);
+        }
+        20% {
+          transform: translateY(-7px);
+        }
+        25% {
+          transform: translateY(0);
+        }
+      }
+
+      .login-content-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .SkyAndTree {
+        flex: 0 1 auto;
+        max-width: 100%;
+      }
+
+      .SkyAndTree img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        display: block;
+      }
+
+      .loginForm {
+        flex: 0 1 auto;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* タブレット以下 */
+      @media (max-width: 1024px) {
+        .login-content-wrapper {
+          flex-direction: column;
+        }
+
+        .SkyAndTree img {
+          max-width: 500px;
+        }
+      }
+
+      /* スマートフォン */
+      @media (max-width: 768px) {
+        .SkyAndTree img {
+          max-width: 100%;
+        }
+
+        .loginForm {
+          max-width: 100%;
+        }
+
+        .loginForm h2 {
+          margin-left: 0 !important;
+        }
+
+        .signup-link {
+          margin-left: 0 !important;
+          width: 100% !important;
+        }
+      }
+
+      /* 小さいスマートフォン */
+      @media (max-width: 480px) {
+        .loginForm table {
+          width: 100% !important;
+        }
+
+        .loginForm th {
+          width: auto !important;
+          display: block;
+          margin-bottom: 5px;
+        }
+
+        .loginForm td {
+          width: 100% !important;
+          display: block;
+        }
+
+        table tr + tr th,
+        table tr + tr td {
+          padding-top: 0;
+        }
+
+        table tr + tr th {
+          padding-top: 16px;
+        }
+      }
+    </style>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -11,36 +158,48 @@
       <h1 style="margin-bottom: 30px">
         履歴書作成アプリ
       </h1>
-      <h2 style="text-align: center; margin-bottom: 30px">ログイン</h2>
 
-      <form id="loginForm" class="login-form">
-        <div>
-          <label for="email">メールアドレス</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="example@mail.com"
-            required
-          />
+      <div class="login-content-wrapper">
+        <div class="SkyAndTree">
+          <img src="/空と木.jpg" alt="空と木" />
         </div>
-        <div>
-          <label for="password">パスワード</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="パスワードを入力"
-            required
-          />
-        </div>
-        <div id="errorMessage" class="error-message"></div>
-        <button type="submit">ログイン</button>
-      </form>
+        
+        <div class="loginForm">
+          <h2 style="width: 100%; text-align: center; margin-bottom: 30px; margin-left: 100px;">ログイン</h2>
+          
+          <form id="loginForm" class="login-form">
+            <table>
+              <tr>
+                <th><label for="email">メールアドレス</label></th>
+                <td><input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="example@mail.com"
+                  required
+                /></td>
+              </tr>
+              <tr>
+                <th><label for="password">パスワード</label></th>
+                <td><input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="パスワードを入力"
+                  required
+                /></td>
+              </tr>
+            </table>
+            
+            <div id="errorMessage" class="error-message"></div>
+            <button type="submit" id="loginButton">ログイン</button>
+          </form>
 
-      <div class="signup-link">
-        アカウントをお持ちでない方は
-        <a href="signup.html">新規登録</a>
+          <div class="signup-link">
+            アカウントをお持ちでない方は
+            <a href="signup.html">新規登録</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -79,7 +238,7 @@
               errorMessage.classList.add("show");
             } else {
               // ログイン成功
-              // セッション情報を保存（auth.jsで自動的に処理される）
+              // セッション情報を保存(auth.jsで自動的に処理される)
               window.location.href = "index.html";
             }
           } catch (err) {
