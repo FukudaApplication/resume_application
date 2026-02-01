@@ -4,56 +4,182 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>新規登録 - 履歴書作成アプリ</title>
+    <style>
+      /* 画面内に収める */
+      * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 背景の三角形 */     
+      .background-triangle {
+        background-color: #dda0dd;
+      }
+
+      .signup-container-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .OfficeWork {
+        flex: 0 1 auto;
+        max-width: 100%;
+      }
+
+      .OfficeWork img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        display: block;
+      }
+
+      .signupForm {
+        flex: 0 1 auto;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* タブレット以下 */
+      @media (max-width: 1024px) {
+        .signup-container-wrapper {
+          flex-direction: column;
+        }
+
+        .OfficeWork img {
+          max-width: 500px;
+        }
+      }
+
+      /* スマートフォン */
+      @media (max-width: 768px) {
+        .OfficeWork img {
+          max-width: 100%;
+        }
+
+        .signupForm {
+          max-width: 100%;
+        }
+
+        .signupForm h2 {
+          margin-left: 0 !important;
+        }
+
+        .login-link {
+          margin-left: 0 !important;
+          width: 100% !important;
+        }
+      }
+
+      /* 小さいスマートフォン */
+      @media (max-width: 480px) {
+        .signupForm table {
+          width: 100% !important;
+        }
+
+        .signupForm th {
+          width: auto !important;
+          display: block;
+          margin-bottom: 5px;
+        }
+
+        .signupForm td {
+          width: 100% !important;
+          display: block;
+        }
+
+        table tr + tr th,
+        table tr + tr td {
+          padding-top: 0;
+        }
+
+        table tr + tr th {
+          padding-top: 16px;
+        }
+      }
+
+      #signupButton {
+        margin-left: 250px;
+      }
+    </style>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="login-container">
-      <h1 style="margin-bottom: 30px">
-        履歴書作成アプリ
-      </h1>
-      <h2 style="text-align: center; margin-bottom: 30px">新規登録</h2>
+    <div class="signup-container">
+      <div class="background-triangle">
+        <h1 style="margin-bottom: 30px">
+          履歴書作成アプリ
+        </h1>
 
-      <div id="errorMessage" class="error-message"></div>
-      <div id="successMessage" class="success-message"></div>
-
-      <form id="signupForm" class="login-form">
-        <div>
-          <label for="email">メールアドレス</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="example@mail.com"
-            required
-          />
+        <div class="signup-container-wrapper">
+          <div class="OfficeWork">
+            <img src="/事務作業.jpg" alt="事務作業" />
+          </div>
+          <div class="signupform"></div>
+            <form id="signupForm" class="signupForm">
+              <h2 style="text-align: center; margin-bottom: 30px">新規登録</h2>
+              <table>
+                <tr>
+                  <th><label for="email">メールアドレス</label></th>
+                  <td><input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="bigform"
+                    placeholder="example@mail.com"
+                    required
+                  /></td>
+                </tr>
+                
+                <tr>
+                  <th><label for="password">パスワード</label></th>
+                  <td><input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="bigform"
+                    placeholder="6文字以上"
+                    minlength="6"
+                    required
+                  /></td>
+                </tr>
+                <tr>
+                  <th><label for="passwordConfirm">パスワード（確認）</label></th>
+                  <td><input
+                    type="password"
+                    id="passwordConfirm"
+                    name="passwordConfirm"
+                    class="bigform"
+                    placeholder="同じパスワードを入力"
+                    required
+                  /></td>
+                </tr>
+              </table>
+              <div id="errorMessage" class="error-message"></div>
+              <div id="successMessage" class="success-message"></div>
+              <button 
+                type="submit"
+                class="bigbutton"
+                id="signupButton">新規登録</button>
+              <div class="login-link">
+                既にアカウントをお持ちの方は
+                <a href="login.html">ログイン</a>
+              </div>
+            </form>
+          </div>
         </div>
-        <div>
-          <label for="password">パスワード</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="6文字以上"
-            minlength="6"
-            required
-          />
-        </div>
-        <div>
-          <label for="passwordConfirm">パスワード（確認）</label>
-          <input
-            type="password"
-            id="passwordConfirm"
-            name="passwordConfirm"
-            placeholder="同じパスワードを入力"
-            required
-          />
-        </div>
-        <button type="submit">新規登録</button>
-      </form>
-
-      <div class="login-link">
-        既にアカウントをお持ちの方は
-        <a href="login.html">ログイン</a>
       </div>
     </div>
 
