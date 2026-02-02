@@ -4,29 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>履歴書・経歴書作成アプリ</title>
+    <style>
+      #logoutBtn {
+        position: fixed;
+        top: 20px;
+        right: 50px;
+        display: inline-block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        color: #67c5ff;
+        border: double 4px #67c5ff;
+        border-radius: 3px;
+        transition: .4s;
+      }
+
+      #logoutBtn:hover {
+        background: #fff;
+      }
+
+      html {
+          background: repeating-linear-gradient(-45deg, #ffeeeb, #ffeeeb 7px, #fdf6f5 7px, #fdf6f5 14px);
+          min-height: 100vh;
+      }
+
+    </style>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>履歴書・経歴書作成アプリ</h1>
     <div class="wrap">
-        <a href="resume.html" class="make_button">履歴書を作る</a>
-        <a href="#" class="make_button">経歴書を作る</a>
-      </div>
-        <button
-          id="logoutBtn"
-          style="
-            padding: 10px 20px;
-            background: #95a5a6;
-            color: white;
-            border: 3px solid #2f3542;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 700;
-          "
-        >
-          ログアウト
-        </button>
-      </div>
+      <a href="resume.html" class="make_button">履 歴 書 を 作 る</a>
+      <a href="#" class="make_button">経 歴 書 を 作 る</a>
+    </div>
+    <button id="logoutBtn">
+      ログアウト
+    </button>
 
     <!-- Supabase JSライブラリ -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
