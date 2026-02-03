@@ -104,8 +104,6 @@ function inputMailCheck() {
     }
 }
 
-// 画像取得
-
 //欄の追加
 // 学歴アイテムを追加する関数
 function addEducationItem() {

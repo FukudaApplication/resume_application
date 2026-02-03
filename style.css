@@ -183,7 +183,7 @@ color: rgba(255, 255, 255, 0.85);
 box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
 }
 
-
+/* 履歴書作成欄 */
 /* リセットCSS */
 * {
     margin: 0;
@@ -261,10 +261,6 @@ body {
     margin-right: 20px;
 }
 
-.name-input-wrapper:last-child {
-    
-}
-
 .textbox {
     width: 300px;
     padding: 3px 7px;
@@ -298,4 +294,13 @@ margin: 0;
 
 .textarea:focus {
     overflow: auto;
+}
+
+#preview {
+    display: none;
+    max-width: 300px;
+    max-height: 300px;
+    margin-top: 10px;
+    margin-left: 300px;
+    border: 1px solid #ccc;
 }
