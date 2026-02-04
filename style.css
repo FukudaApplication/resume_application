@@ -290,6 +290,8 @@ margin: 0;
 .textarea {
     border-radius: 5px;
     border: 2px solid #ccc;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .textarea:focus {
