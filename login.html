@@ -44,6 +44,15 @@
         max-width: 600px;
         height: auto;
         display: block;
+        animation :imgfade 4s infinite;
+      }
+
+      @keyframes imgfade {
+        0% {opacity: 0;}
+        25% {opacity: 1;}
+        50% {opacity: 1;}
+        75% {opacity: 1;}
+        100% {opacity: 0;}
       }
 
       .loginForm {
@@ -122,7 +131,7 @@
         
         <div class="login-content-wrapper">
           <div class="SkyAndTree">
-            <img src="/空と木.jpg" alt="空と木" />
+            <img src="空と木.jpg" id="slide-img_login" alt="スライドショー" />
           </div>
           
           <div class="loginForm">
@@ -214,6 +223,24 @@
             errorMessage.classList.add("show");
           }
         });
+
+        
+        // ログイン画面のスライドショー
+        const images = ["/空と木.jpg", "/山と花.jpg", "/富士山.jpg"];
+        let currentIndex = -1;
+        document.getElementById("slide-img_login").src = images[currentIndex];
+
+        function slideshow_timer(){
+            if(currentIndex == 2){
+                currentIndex = 0;
+                document.getElementById("slide-img_login").src = images[currentIndex];
+            }else{
+                currentIndex++;
+                document.getElementById("slide-img_login").src = images[currentIndex];
+            }
+        }
+
+        setInterval(slideshow_timer, 4000);
     </script>
   </body>
 </html>
