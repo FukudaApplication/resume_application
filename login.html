@@ -1,251 +1,253 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ログイン - 履歴書作成アプリ</title>
-    <style>
-      /* 画面内に収める */
-      * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-        }
 
-      /* 背景の三角形 */     
-      .background-triangle {
-        background-color: #b0c4de;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ログイン - 履歴書作成アプリ</title>
+  <style>
+    /* 画面内に収める */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* 背景の三角形 */
+    .background-triangle {
+      background-color: #b0c4de;
+    }
+
+    .login-content-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .SkyAndTree {
+      flex: 0 1 auto;
+      max-width: 100%;
+    }
+
+    .SkyAndTree img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      display: block;
+      animation: imgfade 4s infinite;
+      border-radius: 10%;
+    }
+
+    @keyframes imgfade {
+      0% {
+        opacity: 0;
       }
 
+      25% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      75% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .loginForm {
+      flex: 0 1 auto;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* タブレット以下 */
+    @media (max-width: 1024px) {
       .login-content-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 40px;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      .SkyAndTree {
-        flex: 0 1 auto;
-        max-width: 100%;
+        flex-direction: column;
       }
 
       .SkyAndTree img {
-        width: 100%;
-        max-width: 600px;
-        height: auto;
-        display: block;
-        animation :imgfade 4s infinite;
+        max-width: 500px;
+        animation: imgfade 4s infinite;
+        border-radius: 10%;
+      }
+    }
+
+    /* スマートフォン */
+    @media (max-width: 768px) {
+      .SkyAndTree img {
+        max-width: 100%;
+        animation: imgfade 4s infinite;
         border-radius: 10%;
       }
 
-      @keyframes imgfade {
-        0% {opacity: 0;}
-        25% {opacity: 1;}
-        50% {opacity: 1;}
-        75% {opacity: 1;}
-        100% {opacity: 0;}
-      }
-
       .loginForm {
-        flex: 0 1 auto;
-        width: 100%;
-        max-width: 400px;
+        max-width: 100%;
       }
 
-      /* タブレット以下 */
-      @media (max-width: 1024px) {
-        .login-content-wrapper {
-          flex-direction: column;
-        }
-
-        .SkyAndTree img {
-          max-width: 500px;
-          animation :imgfade 4s infinite;
-          border-radius: 10%;
-        }
+      .loginForm h2 {
+        margin-left: 0 !important;
       }
 
-      /* スマートフォン */
-      @media (max-width: 768px) {
-        .SkyAndTree img {
-          max-width: 100%;
-          animation :imgfade 4s infinite;
-          border-radius: 10%;
-        }
+      .signup-link {
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+    }
 
-        .loginForm {
-          max-width: 100%;
-        }
-
-        .loginForm h2 {
-          margin-left: 0 !important;
-        }
-
-        .signup-link {
-          margin-left: 0 !important;
-          width: 100% !important;
-        }
+    /* 小さいスマートフォン */
+    @media (max-width: 480px) {
+      .loginForm table {
+        width: 100% !important;
       }
 
-      /* 小さいスマートフォン */
-      @media (max-width: 480px) {
-        .loginForm table {
-          width: 100% !important;
-        }
-
-        .loginForm th {
-          width: auto !important;
-          display: block;
-          margin-bottom: 5px;
-        }
-
-        .loginForm td {
-          width: 100% !important;
-          display: block;
-        }
-
-        table tr + tr th,
-        table tr + tr td {
-          padding-top: 0;
-        }
-
-        table tr + tr th {
-          padding-top: 16px;
-        }
+      .loginForm th {
+        width: auto !important;
+        display: block;
+        margin-bottom: 5px;
       }
-    </style>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="login-container">
-      <div class="background-triangle">
-        <h1 style="margin-bottom: 30px">
-          履歴書作成アプリ
-        </h1>
 
-        
-        <div class="login-content-wrapper">
-          <div class="SkyAndTree">
-            <img src="空と木.jpg" id="slide-img_login" alt="スライドショー" />
-          </div>
-          
-          <div class="loginForm">
-            <h2 style="width: 100%; text-align: center; margin-bottom: 30px; margin-left: 100px;">ログイン</h2>
-            
-            <form id="loginForm" class="login-form">
-              <table>
-                <tr>
-                  <th><label for="email">メールアドレス</label></th>
-                  <td><input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class="bigform"
-                    placeholder="example@mail.com"
-                    required
-                  /></td>
-                </tr>
-                <tr>
-                  <th><label for="password">パスワード</label></th>
-                  <td><input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="bigform"
-                    placeholder="パスワードを入力"
-                    required
-                  /></td>
-                </tr>
-              </table>
-              
-              <div id="errorMessage" class="error-message"></div>
-              <button 
-                type="submit" 
-                id="loginButton" 
-                class="bigbutton">ログイン</button>
-            </form>
+      .loginForm td {
+        width: 100% !important;
+        display: block;
+      }
 
-            <div class="signup-link">
-              アカウントをお持ちでない方は
-              <a href="signup.html">新規登録</a>
-            </div>
+      table tr+tr th,
+      table tr+tr td {
+        padding-top: 0;
+      }
+
+      table tr+tr th {
+        padding-top: 16px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="background-triangle">
+      <h1 style="margin-bottom: 30px; font-size: 40px;">
+        履歴書作成アプリ
+      </h1>
+
+
+      <div class="login-content-wrapper">
+        <div class="SkyAndTree">
+          <img src="空と木.jpg" id="slide-img_login" alt="スライドショー" />
+        </div>
+
+        <div class="loginForm">
+          <h2 style="width: 100%; text-align: center; margin-bottom: 30px; margin-left: 100px;">ログイン</h2>
+
+          <form id="loginForm" class="login-form">
+            <table>
+              <tr>
+                <th><label for="email">メールアドレス</label></th>
+                <td><input type="email" id="email" name="email" class="bigform" placeholder="example@mail.com"
+                    required /></td>
+              </tr>
+              <tr>
+                <th><label for="password">パスワード</label></th>
+                <td><input type="password" id="password" name="password" class="bigform" placeholder="パスワードを入力"
+                    required /></td>
+              </tr>
+            </table>
+
+            <div id="errorMessage" class="error-message"></div>
+            <button type="submit" id="loginButton" class="bigbutton">ログイン</button>
+          </form>
+
+          <div class="signup-link">
+            アカウントをお持ちでない方は
+            <a href="signup.html">新規登録</a>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Supabase JSライブラリ -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- 設定ファイル -->
-    <script src="config.js"></script>
-    <!-- 認証用JavaScript -->
-    <script src="auth.js"></script>
-    <script>
-      // ログインフォームの処理
-      document
-        .getElementById("loginForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
+  <!-- Supabase JSライブラリ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 設定ファイル -->
+  <script src="config.js"></script>
+  <!-- 認証用JavaScript -->
+  <script src="auth.js"></script>
+  <script>
+    // ログインフォームの処理
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-          const email = document.getElementById("email").value;
-          const password = document.getElementById("password").value;
-          const errorMessage = document.getElementById("errorMessage");
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const errorMessage = document.getElementById("errorMessage");
 
-          // エラーメッセージを非表示
-          errorMessage.classList.remove("show");
-          errorMessage.textContent = "";
+        // エラーメッセージを非表示
+        errorMessage.classList.remove("show");
+        errorMessage.textContent = "";
 
-          try {
-            // Supabaseでログイン
-            const { data, error } =
-              await supabaseClient.auth.signInWithPassword({
-                email: email,
-                password: password,
-              });
+        try {
+          // Supabaseでログイン
+          const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+              email: email,
+              password: password,
+            });
 
-            if (error) {
-              // エラーが発生した場合
-              errorMessage.textContent = error.message;
-              errorMessage.classList.add("show");
-            } else {
-              // ログイン成功
-              // セッション情報を保存(auth.jsで自動的に処理される)
-              window.location.href = "index.html";
-            }
-          } catch (err) {
-            // 予期しないエラー
-            errorMessage.textContent = "ログインに失敗しました。";
+          if (error) {
+            // エラーが発生した場合
+            errorMessage.textContent = error.message;
             errorMessage.classList.add("show");
+          } else {
+            // ログイン成功
+            // セッション情報を保存(auth.jsで自動的に処理される)
+            window.location.href = "index.html";
           }
-        });
-
-        
-        // ログイン画面のスライドショー
-        const images = ["/空と木.jpg", "/山と花.jpg", "/富士山.jpg"];
-        let currentIndex = 0;
-        document.getElementById("slide-img_login").src = images[currentIndex];
-
-        function slideshow_timer(){
-            if(currentIndex == 2){
-                currentIndex = 0;
-                document.getElementById("slide-img_login").src = images[currentIndex];
-            }else{
-                currentIndex++;
-                document.getElementById("slide-img_login").src = images[currentIndex];
-            }
+        } catch (err) {
+          // 予期しないエラー
+          errorMessage.textContent = "ログインに失敗しました。";
+          errorMessage.classList.add("show");
         }
+      });
 
-        setInterval(slideshow_timer, 4000);
-    </script>
-  </body>
+
+    // ログイン画面のスライドショー
+    const images = ["/空と木.jpg", "/山と花.jpg", "/富士山.jpg"];
+    let currentIndex = 0;
+    document.getElementById("slide-img_login").src = images[currentIndex];
+
+    function slideshow_timer() {
+      if (currentIndex == 2) {
+        currentIndex = 0;
+        document.getElementById("slide-img_login").src = images[currentIndex];
+      } else {
+        currentIndex++;
+        document.getElementById("slide-img_login").src = images[currentIndex];
+      }
+    }
+
+    setInterval(slideshow_timer, 4000);
+  </script>
+</body>
+
 </html>
