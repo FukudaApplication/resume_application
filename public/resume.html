@@ -54,7 +54,7 @@
                     <label for="birth">生年月日</label>
                 </div>
                 <div class="form-input-group">
-                    <input type="date" value="2017-06-01">
+                    <input type="date" id="birth_date" value="2017-06-01">
                 </div>
             </div>
             <div class="form-row">
@@ -230,6 +230,17 @@
             }
         });
 
+        function formatDateToJapanese(dateString) {
+            const date = new Date(dateString);
+            const current_date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const age = current_date.getFullYear() - year;
+
+            return `${year}年　　${month}月　　${day}日生　　（満${age}歳）`;
+        }
+
         async function exportCSV() {
             // フォームのデフォルト動作を防ぐ
             event.preventDefault();
@@ -241,6 +252,11 @@
             const name_kanji_value =
                 document.getElementById('last-name-kanzi').value + " " +
                 document.getElementById('first-name-kanzi').value;
+
+            const birth_date_value =
+                document.getElementById('birth_date').value;
+            birth_value = formatDateToJapanese(birth_date_value);
+            console.log(birth_value);
 
             try {
                 const writeResponse = await fetch('/api/write-file', {

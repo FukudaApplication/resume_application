@@ -16,21 +16,20 @@ app.post('/api/write-file', async (req, res) => {
         const templatePath = path.join(__dirname, 'rirekisyo_a4_mhlw.xlsx');
         const outputPath = path.join(__dirname, filename);
 
-        // ★ テンプレートをコピー（書式完全保持）
+        // テンプレートをコピー（書式完全保持）
         fs.copyFileSync(templatePath, outputPath);
 
-        // ★ コピーしたファイルを読み込み
+        // コピーしたファイルを読み込み
         const workbook = new ExcelJS.Workbook();
         await workbook.xlsx.readFile(outputPath);
 
         const worksheet = workbook.getWorksheet('A4サイズ');
         console.log(workbook.worksheets.map(ws => ws.name));
 
-        // ★ セルの値だけ変更（例）
         worksheet.getCell('D5').value = name_kana;
         worksheet.getCell('B7').value = name_kanji;
 
-        // ★ 上書き保存
+        // 上書き保存
         await workbook.xlsx.writeFile(outputPath);
 
         res.json({ success: true, filename });

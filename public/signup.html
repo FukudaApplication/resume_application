@@ -1,286 +1,281 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>新規登録 - 履歴書作成アプリ</title>
-    <style>
-      /* 画面内に収める */
-      * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-        }
 
-        /* 背景の三角形 */     
-      .background-triangle {
-        background-color: #dda0dd;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新規登録 - 履歴書作成アプリ</title>
+  <style>
+    /* 画面内に収める */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* 背景の三角形 */
+    .background-triangle {
+      background-color: #dda0dd;
+    }
+
+    .signup-container-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .OfficeWork {
+      flex: 0 1 auto;
+      max-width: 100%;
+    }
+
+    .OfficeWork img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      animation: imgfade 4s infinite;
+      border-radius: 10%;
+    }
+
+    @keyframes imgfade {
+      0% {
+        opacity: 0;
       }
 
+      25% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      75% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .signupForm {
+      flex: 0 1 auto;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* タブレット以下 */
+    @media (max-width: 1024px) {
       .signup-container-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 40px;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      .OfficeWork {
-        flex: 0 1 auto;
-        max-width: 100%;
+        flex-direction: column;
       }
 
       .OfficeWork img {
-        width: 100%;
-        max-width: 600px;
-        height: auto;
+        max-width: 500px;
+        animation: imgfade 4s infinite;
         aspect-ratio: 16 / 9;
         object-fit: cover;
-        display: block;
-        animation :imgfade 4s infinite;
+        border-radius: 10%;
+      }
+    }
+
+    /* スマートフォン */
+    @media (max-width: 768px) {
+      .OfficeWork img {
+        max-width: 100%;
+        animation: imgfade 4s infinite;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
         border-radius: 10%;
       }
 
-      @keyframes imgfade {
-        0% {opacity: 0;}
-        25% {opacity: 1;}
-        50% {opacity: 1;}
-        75% {opacity: 1;}
-        100% {opacity: 0;}
-      }
-
       .signupForm {
-        flex: 0 1 auto;
-        width: 100%;
-        max-width: 400px;
+        max-width: 100%;
       }
 
-      /* タブレット以下 */
-      @media (max-width: 1024px) {
-        .signup-container-wrapper {
-          flex-direction: column;
-        }
-
-        .OfficeWork img {
-          max-width: 500px;
-          animation :imgfade 4s infinite;
-          aspect-ratio: 16 / 9;
-          object-fit: cover;
-          border-radius: 10%;
-        }
+      .signupForm h2 {
+        margin-left: 0 !important;
       }
 
-      /* スマートフォン */
-      @media (max-width: 768px) {
-        .OfficeWork img {
-          max-width: 100%;
-          animation :imgfade 4s infinite;
-          aspect-ratio: 16 / 9;
-          object-fit: cover;
-          border-radius: 10%;
-        }
+      .login-link {
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+    }
 
-        .signupForm {
-          max-width: 100%;
-        }
-
-        .signupForm h2 {
-          margin-left: 0 !important;
-        }
-
-        .login-link {
-          margin-left: 0 !important;
-          width: 100% !important;
-        }
+    /* 小さいスマートフォン */
+    @media (max-width: 480px) {
+      .signupForm table {
+        width: 100% !important;
       }
 
-      /* 小さいスマートフォン */
-      @media (max-width: 480px) {
-        .signupForm table {
-          width: 100% !important;
-        }
-
-        .signupForm th {
-          width: auto !important;
-          display: block;
-          margin-bottom: 5px;
-        }
-
-        .signupForm td {
-          width: 100% !important;
-          display: block;
-        }
-
-        table tr + tr th,
-        table tr + tr td {
-          padding-top: 0;
-        }
-
-        table tr + tr th {
-          padding-top: 16px;
-        }
+      .signupForm th {
+        width: auto !important;
+        display: block;
+        margin-bottom: 5px;
       }
 
-      #signupButton {
-        margin-left: 250px;
+      .signupForm td {
+        width: 100% !important;
+        display: block;
       }
-    </style>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="signup-container">
-      <div class="background-triangle">
-        <h1 style="margin-bottom: 30px">
-          履歴書作成アプリ
-        </h1>
 
-        <div class="signup-container-wrapper">
-          <div class="OfficeWork">
-            <img src="/事務作業.jpg" id="slide-img_signup" alt="事務作業" />
-          </div>
-          <div class="signupform"></div>
-            <form id="signupForm" class="signupForm">
-              <h2 style="text-align: center; margin-bottom: 30px">新規登録</h2>
-              <table>
-                <tr>
-                  <th><label for="email">メールアドレス</label></th>
-                  <td><input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class="bigform"
-                    placeholder="example@mail.com"
-                    required
-                  /></td>
-                </tr>
-                
-                <tr>
-                  <th><label for="password">パスワード</label></th>
-                  <td><input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="bigform"
-                    placeholder="6文字以上"
-                    minlength="6"
-                    required
-                  /></td>
-                </tr>
-                <tr>
-                  <th><label for="passwordConfirm">パスワード（確認）</label></th>
-                  <td><input
-                    type="password"
-                    id="passwordConfirm"
-                    name="passwordConfirm"
-                    class="bigform"
-                    placeholder="同じパスワードを入力"
-                    required
-                  /></td>
-                </tr>
-              </table>
-              <div id="errorMessage" class="error-message"></div>
-              <div id="successMessage" class="success-message"></div>
-              <button 
-                type="submit"
-                class="bigbutton"
-                id="signupButton">新規登録</button>
-              <div class="login-link">
-                既にアカウントをお持ちの方は
-                <a href="login.html">ログイン</a>
-              </div>
-            </form>
-          </div>
+      table tr+tr th,
+      table tr+tr td {
+        padding-top: 0;
+      }
+
+      table tr+tr th {
+        padding-top: 16px;
+      }
+    }
+
+    #signupButton {
+      margin-left: 250px;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="signup-container">
+    <div class="background-triangle">
+      <h1 style="margin-bottom: 30px;">
+        履歴書作成アプリ
+      </h1>
+
+      <div class="signup-container-wrapper">
+        <div class="OfficeWork">
+          <img src="/事務作業.jpg" id="slide-img_signup" alt="事務作業" />
         </div>
+        <div class="signupform"></div>
+        <form id="signupForm" class="signupForm">
+          <h2 style="text-align: center; margin-bottom: 30px">新規登録</h2>
+          <table>
+            <tr>
+              <th><label for="email">メールアドレス</label></th>
+              <td><input type="email" id="email" name="email" class="bigform" placeholder="example@mail.com" required />
+              </td>
+            </tr>
+
+            <tr>
+              <th><label for="password">パスワード</label></th>
+              <td><input type="password" id="password" name="password" class="bigform" placeholder="6文字以上" minlength="6"
+                  required /></td>
+            </tr>
+            <tr>
+              <th><label for="passwordConfirm">パスワード（確認）</label></th>
+              <td><input type="password" id="passwordConfirm" name="passwordConfirm" class="bigform"
+                  placeholder="同じパスワードを入力" required /></td>
+            </tr>
+          </table>
+          <div id="errorMessage" class="error-message"></div>
+          <div id="successMessage" class="success-message"></div>
+          <button type="submit" class="bigbutton" id="signupButton">新規登録</button>
+          <div class="login-link">
+            既にアカウントをお持ちの方は
+            <a href="login.html">ログイン</a>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
+  </div>
 
-    <!-- Supabase JSライブラリ -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- 設定ファイル -->
-    <script src="config.js"></script>
-    <!-- 認証用JavaScript -->
-    <script src="auth.js"></script>
-    <script>
-      // 新規登録フォームの処理
-      document
-        .getElementById("signupForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
+  <!-- Supabase JSライブラリ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 設定ファイル -->
+  <script src="config.js"></script>
+  <!-- 認証用JavaScript -->
+  <script src="auth.js"></script>
+  <script>
+    // 新規登録フォームの処理
+    document
+      .getElementById("signupForm")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-          const email = document.getElementById("email").value;
-          const password = document.getElementById("password").value;
-          const passwordConfirm =
-            document.getElementById("passwordConfirm").value;
-          const errorMessage = document.getElementById("errorMessage");
-          const successMessage = document.getElementById("successMessage");
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const passwordConfirm =
+          document.getElementById("passwordConfirm").value;
+        const errorMessage = document.getElementById("errorMessage");
+        const successMessage = document.getElementById("successMessage");
 
-          // メッセージを非表示
-          errorMessage.classList.remove("show");
-          successMessage.classList.remove("show");
-          errorMessage.textContent = "";
-          successMessage.textContent = "";
+        // メッセージを非表示
+        errorMessage.classList.remove("show");
+        successMessage.classList.remove("show");
+        errorMessage.textContent = "";
+        successMessage.textContent = "";
 
-          // パスワード確認
-          if (password !== passwordConfirm) {
-            errorMessage.textContent = "パスワードが一致しません。";
-            errorMessage.classList.add("show");
-            return;
-          }
-
-          try {
-            // Supabaseで新規登録
-            const { data, error } = await supabaseClient.auth.signUp({
-              email: email,
-              password: password,
-            });
-
-            if (error) {
-              // エラーが発生した場合
-              errorMessage.textContent = error.message;
-              errorMessage.classList.add("show");
-            } else {
-              // 登録成功
-              successMessage.textContent =
-                "登録が完了しました！ログインページに移動します。";
-              successMessage.classList.add("show");
-
-              // 2秒後にログインページにリダイレクト
-              setTimeout(() => {
-                window.location.href = "login.html";
-              }, 2000);
-            }
-          } catch (err) {
-            // 予期しないエラー
-            errorMessage.textContent = "登録に失敗しました。";
-            errorMessage.classList.add("show");
-          }
-        });
-
-        // 新規登録画面のスライドショー
-        const images = ["/事務作業.jpg", "/オフィスビル.jpg", "/ポイント.jpg"];
-        let currentIndex = 0;
-        document.getElementById("slide-img_signup").src = images[currentIndex];
-
-        function slideshow_timer(){
-            if(currentIndex == 2){
-                currentIndex = 0;
-                document.getElementById("slide-img_signup").src = images[currentIndex];
-            }else{
-                currentIndex++;
-                document.getElementById("slide-img_signup").src = images[currentIndex];
-            }
+        // パスワード確認
+        if (password !== passwordConfirm) {
+          errorMessage.textContent = "パスワードが一致しません。";
+          errorMessage.classList.add("show");
+          return;
         }
 
-        setInterval(slideshow_timer, 4000);
-    </script>
-  </body>
+        try {
+          // Supabaseで新規登録
+          const { data, error } = await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+          });
+
+          if (error) {
+            // エラーが発生した場合
+            errorMessage.textContent = error.message;
+            errorMessage.classList.add("show");
+          } else {
+            // 登録成功
+            successMessage.textContent =
+              "登録が完了しました！ログインページに移動します。";
+            successMessage.classList.add("show");
+
+            // 2秒後にログインページにリダイレクト
+            setTimeout(() => {
+              window.location.href = "login.html";
+            }, 2000);
+          }
+        } catch (err) {
+          // 予期しないエラー
+          errorMessage.textContent = "登録に失敗しました。";
+          errorMessage.classList.add("show");
+        }
+      });
+
+    // 新規登録画面のスライドショー
+    const images = ["/事務作業.jpg", "/オフィスビル.jpg", "/ポイント.jpg"];
+    let currentIndex = 0;
+    document.getElementById("slide-img_signup").src = images[currentIndex];
+
+    function slideshow_timer() {
+      if (currentIndex == 2) {
+        currentIndex = 0;
+        document.getElementById("slide-img_signup").src = images[currentIndex];
+      } else {
+        currentIndex++;
+        document.getElementById("slide-img_signup").src = images[currentIndex];
+      }
+    }
+
+    setInterval(slideshow_timer, 4000);
+  </script>
+</body>
+
 </html>
