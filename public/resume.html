@@ -63,8 +63,8 @@
                     <label for="gender">性別</label>
                 </div>
                 <div class="form-input-group">
-                    <input type="radio" name="gender" value="男"> 男
-                    <input type="radio" name="gender" value="女" checked> 女
+                    <input type="radio" name="gender" value="男性"> 男性
+                    <input type="radio" name="gender" value="女性" checked> 女性
                 </div>
             </div>
             <div class="form-row">
@@ -272,6 +272,11 @@
 
             const birth_value = formatDateToJapanese(birth_date_value);
 
+            const gender_value = document.querySelector('input[name="gender"]:checked');
+            if (gender_value) {
+                console.log(gender_value.value); // 選択された値を取得
+            }
+
             try {
                 const writeResponse = await fetch('/api/write-file', {
                     method: 'POST',
@@ -281,6 +286,7 @@
                         name_kana: name_katakana_value,
                         name_kanji: name_kanji_value,
                         birth_value: birth_value,
+                        gender_value: gender_value.value,
                         filename: '履歴書.xlsx'
                     })
                 });
