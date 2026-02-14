@@ -230,6 +230,7 @@
             }
         });
 
+        // 現在時点での誕生日を取得
         function formatDateToJapanese(dateString) {
             const date = new Date(dateString);
             const current_date = new Date();
@@ -241,6 +242,7 @@
             return `${year}年　　${month}月　　${day}日生　　（満${age}歳）`;
         }
 
+        // csv出力
         async function exportCSV() {
             // フォームのデフォルト動作を防ぐ
             event.preventDefault();
@@ -255,8 +257,8 @@
 
             const birth_date_value =
                 document.getElementById('birth_date').value;
-            birth_value = formatDateToJapanese(birth_date_value);
-            console.log(birth_value);
+
+            const birth_value = formatDateToJapanese(birth_date_value);
 
             try {
                 const writeResponse = await fetch('/api/write-file', {
@@ -265,6 +267,7 @@
                     body: JSON.stringify({
                         name_kana: name_katakana_value,
                         name_kanji: name_kanji_value,
+                        birth_value: birth_value,
                         filename: '履歴書.xlsx'
                     })
                 });

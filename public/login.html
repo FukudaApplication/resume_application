@@ -232,19 +232,18 @@
 
 
     // ログイン画面のスライドショー
-    const images = ["/空と木.jpg", "/山と花.jpg", "/富士山.jpg"];
+    const images = ["空と木.jpg", "山と花.jpg", "富士山.jpg"];
     let currentIndex = 0;
-    document.getElementById("slide-img_login").src = images[currentIndex];
+    const slideImg = document.getElementById("slide-img_login");
 
-    function slideshow_timer() {
-      if (currentIndex == 2) {
-        currentIndex = 0;
-        document.getElementById("slide-img_login").src = images[currentIndex];
-      } else {
-        currentIndex++;
-        document.getElementById("slide-img_login").src = images[currentIndex];
-      }
-    }
+    // 初期画像を設定
+    slideImg.src = images[currentIndex];
+
+    // アニメーション終了時に次の画像に切り替え
+    slideImg.addEventListener('animationiteration', function () {
+      currentIndex = (currentIndex + 1) % 3;
+      slideImg.src = images[currentIndex];
+    });
 
     setInterval(slideshow_timer, 4000);
   </script>

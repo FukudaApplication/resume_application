@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.post('/api/write-file', async (req, res) => {
     try {
-        const { name_kana, name_kanji, filename } = req.body;
+        const { name_kana, name_kanji, birth_value, filename } = req.body;
 
         const templatePath = path.join(__dirname, 'rirekisyo_a4_mhlw.xlsx');
         const outputPath = path.join(__dirname, filename);
@@ -28,6 +28,8 @@ app.post('/api/write-file', async (req, res) => {
 
         worksheet.getCell('D5').value = name_kana;
         worksheet.getCell('B7').value = name_kanji;
+        worksheet.getCell('B10').value = birth_value;
+        worksheet.getCell('B10').alignment = { vertical: 'middle', horizontal: 'center' };
 
         // 上書き保存
         await workbook.xlsx.writeFile(outputPath);
