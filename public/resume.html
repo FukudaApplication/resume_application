@@ -242,10 +242,22 @@
             return `${year}年　　${month}月　　${day}日生　　（満${age}歳）`;
         }
 
+        // 現在時点の年月日を取得
+        function getCurrentDate() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+
+            return `${year}年　　${month}月　　${day}日現在`;
+        }
+
         // csv出力
         async function exportCSV() {
             // フォームのデフォルト動作を防ぐ
             event.preventDefault();
+
+            const current_date_value = getCurrentDate();
 
             const name_katakana_value =
                 document.getElementById('last-name-katakana').value + " " +
@@ -265,6 +277,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
+                        current_date_value: current_date_value,
                         name_kana: name_katakana_value,
                         name_kanji: name_kanji_value,
                         birth_value: birth_value,
