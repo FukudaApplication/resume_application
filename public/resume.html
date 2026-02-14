@@ -15,18 +15,18 @@
             <div class="form-row">
                 <!-- 名前（カタカナ）入力欄 -->
                 <div class="form-label">
-                    <label for="last-name-kana">名前（カナ）</label>
+                    <label for="last-name-kana">名前（ひらがな）</label>
                 </div>
                 <div class="form-input-group">
                     <div class="name-input-wrapper">
-                        <label for="last-name-katakana">セイ</label>
-                        <input type="text" id="last-name-katakana" name="name"
-                            class="textbox address_textbox name_textbox" placeholder="例:ヤマダ">
+                        <label for="last-name-katakana">せい</label>
+                        <input type="text" id="last-name-hiragana" name="name"
+                            class="textbox address_textbox name_textbox" placeholder="例:やまだ">
                     </div>
                     <div class="name-input-wrapper">
-                        <label for="first-name-katakana">メイ</label>
-                        <input type="text" id="first-name-katakana" name="name"
-                            class="textbox address_textbox name_textbox" placeholder="例:タロウ">
+                        <label for="first-name-katakana">めい</label>
+                        <input type="text" id="first-name-hiragana" name="name"
+                            class="textbox address_textbox name_textbox" placeholder="例:たろう">
                     </div>
                 </div>
             </div>
@@ -80,6 +80,16 @@
                     <button type="button" onclick="searchAddress ()">探す</button>
                 </div>
                 <div id="checkAddress"></div>
+                <div class="form-input-group">
+                    <label for="address_hiragana">住所(ひらがな)
+                        <input type="text" id="address_hiragana" class="textbox" placeholder="例:まつえしとのまち">
+                    </label>
+                </div>
+                <div class="form-input-group">
+                    <label for="banti_hiragana">番地(ひらがな)
+                        <input type="text" class="textbox" if="banti" placeholder="例:１ばんち">
+                    </label>
+                </div>
                 <div class="form-input-group">
                     <label for="address">住所
                         <input type="text" id="addressForm" class="textbox" placeholder="例:松江市殿町">
@@ -208,6 +218,27 @@
 
     <script src="script.js"></script>
     <script>
+        // 郵便番号から住所を検索する
+        async function searchAddress(zipcode) {
+            const url = `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.results) {
+                    const result = data.results[0];
+                    // 漢字
+                    document.getElementById('addressForm').value = result.address1 + result.address2 + result.address3;
+
+                    // ふりがな（カタカナ）
+                    document.getElementById('address_hiragana').value = result.kana1 + result.kana2 + result.kana3;
+                }
+            } catch (error) {
+                console.error('住所取得エラー:', error);
+            }
+        }
+
         // 画像取得
         const imageInput = document.getElementById('imageInput');
         const preview = document.getElementById('preview');
@@ -259,9 +290,9 @@
 
             const current_date_value = getCurrentDate();
 
-            const name_katakana_value =
-                document.getElementById('last-name-katakana').value + " " +
-                document.getElementById('first-name-katakana').value;
+            const name_hiragana_value =
+                document.getElementById('last-name-hiragana').value + " " +
+                document.getElementById('first-name-hiragana').value;
 
             const name_kanji_value =
                 document.getElementById('last-name-kanzi').value + " " +
@@ -283,7 +314,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         current_date_value: current_date_value,
-                        name_kana: name_katakana_value,
+                        name_hiragana: name_hiragana_value,
                         name_kanji: name_kanji_value,
                         birth_value: birth_value,
                         gender_value: gender_value.value,

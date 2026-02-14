@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.post('/api/write-file', async (req, res) => {
     try {
-        const { current_date_value, name_kana, name_kanji, birth_value, gender_value, filename } = req.body;
+        const { current_date_value, name_hiragana, name_kanji, birth_value, gender_value, filename } = req.body;
 
         const templatePath = path.join(__dirname, 'rirekisyo_a4_mhlw.xlsx');
         const outputPath = path.join(__dirname, filename);
@@ -27,7 +27,7 @@ app.post('/api/write-file', async (req, res) => {
         console.log(workbook.worksheets.map(ws => ws.name));
 
         worksheet.getCell('E3').value = current_date_value;
-        worksheet.getCell('D5').value = name_kana;
+        worksheet.getCell('D5').value = name_hiragana;
         worksheet.getCell('B7').value = name_kanji;
         worksheet.getCell('B10').value = birth_value;
         worksheet.getCell('B10').alignment = { vertical: 'middle', horizontal: 'center' };
