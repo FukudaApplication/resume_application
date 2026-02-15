@@ -61,13 +61,108 @@ document.getElementById("loginForm").addEventListener("click", async (e) => {
 });
 
 // 履歴書の入力画面
+// 半角カタカナを全角カタカナに変換する関数
+function hankana2Zenkana(str) {
+  // 半角カタカナと全角カタカナの対応マップ
+  let kanaMap = {
+    'ｶﾞ': 'ガ', 'ｷﾞ': 'ギ', 'ｸﾞ': 'グ', 'ｹﾞ': 'ゲ', 'ｺﾞ': 'ゴ',
+    'ｻﾞ': 'ザ', 'ｼﾞ': 'ジ', 'ｽﾞ': 'ズ', 'ｾﾞ': 'ゼ', 'ｿﾞ': 'ゾ',
+    'ﾀﾞ': 'ダ', 'ﾁﾞ': 'ヂ', 'ﾂﾞ': 'ヅ', 'ﾃﾞ': 'デ', 'ﾄﾞ': 'ド',
+    'ﾊﾞ': 'バ', 'ﾋﾞ': 'ビ', 'ﾌﾞ': 'ブ', 'ﾍﾞ': 'ベ', 'ﾎﾞ': 'ボ',
+    'ﾊﾟ': 'パ', 'ﾋﾟ': 'ピ', 'ﾌﾟ': 'プ', 'ﾍﾟ': 'ペ', 'ﾎﾟ': 'ポ',
+    'ｳﾞ': 'ヴ', 'ﾜﾞ': 'ヷ', 'ｦﾞ': 'ヺ',
+    'ｱ': 'ア', 'ｲ': 'イ', 'ｳ': 'ウ', 'ｴ': 'エ', 'ｵ': 'オ',
+    'ｶ': 'カ', 'ｷ': 'キ', 'ｸ': 'ク', 'ｹ': 'ケ', 'ｺ': 'コ',
+    'ｻ': 'サ', 'ｼ': 'シ', 'ｽ': 'ス', 'ｾ': 'セ', 'ｿ': 'ソ',
+    'ﾀ': 'タ', 'ﾁ': 'チ', 'ﾂ': 'ツ', 'ﾃ': 'テ', 'ﾄ': 'ト',
+    'ﾅ': 'ナ', 'ﾆ': 'ニ', 'ﾇ': 'ヌ', 'ﾈ': 'ネ', 'ﾉ': 'ノ',
+    'ﾊ': 'ハ', 'ﾋ': 'ヒ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
+    'ﾏ': 'マ', 'ﾐ': 'ミ', 'ﾑ': 'ム', 'ﾒ': 'メ', 'ﾓ': 'モ',
+    'ﾔ': 'ヤ', 'ﾕ': 'ユ', 'ﾖ': 'ヨ',
+    'ﾗ': 'ラ', 'ﾘ': 'リ', 'ﾙ': 'ル', 'ﾚ': 'レ', 'ﾛ': 'ロ',
+    'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
+    'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
+    'ｯ': 'ッ', 'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
+    '｡': '。', '､': '、', 'ｰ': 'ー', '｢': '「', '｣': '」', '･': '・'
+  };
+
+  // 正規表現で濁点付き文字、または単一の半角文字をマッチさせる
+  var reg = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g');
+
+  // 置換処理
+  return str.replace(reg, function (match) {
+    return kanaMap[match];
+  });
+}
+// カタカナからひらがなにする
+function katakanaToHiragana(str) {
+  return str.replace(/[\u30a1-\u30f6]/g, function (match) {
+    return String.fromCharCode(match.charCodeAt(0) - 0x60);
+  }).replace(/ー/g, 'ー');
+}
+// 郵便番号から住所を検索する
+async function searchAddress() {
+  const zipcode = document.getElementById("searchAddressBox").value;
+  const url = `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.results) {
+      const result = data.results[0];
+      // 漢字
+      document.getElementById('addressForm').value = result.address1 + result.address2 + result.address3;
+
+      // ふりがな（ひらがな）
+      const address = result.kana1 + result.kana2 + result.kana3;
+      document.getElementById('address_hiragana').value = katakanaToHiragana(hankana2Zenkana(address));
+    }
+  } catch (error) {
+    console.error('住所取得エラー:', error);
+  }
+}
+
+async function searchAddress_kinkyu() {
+  const zipcode = document.getElementById("searchAddressBox_kinkyu").value;
+  const url = `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.results) {
+      const result = data.results[0];
+      // 漢字
+      document.getElementById('addressForm_kinkyu').value = result.address1 + result.address2 + result.address3;
+
+      // ふりがな（ひらがな）
+      const address = result.kana1 + result.kana2 + result.kana3;
+      document.getElementById('address_hiragana_kinkyu').value = katakanaToHiragana(hankana2Zenkana(address));
+    }
+  } catch (error) {
+    console.error('住所取得エラー:', error);
+  }
+}
+
+
 // 住所の入力エラー
 function inputAddressCheck() {
-  const inputValue = document.getElementById("searchAddressBox").value;
-  if (!(inputValue.match(/^[0-9]+$/)) || !(inputValue.length === 7)) {
-    document.getElementById("checkAddress").innerHTML = "<span style='color: red;'>半角数字7桁で入力してください！</span>";
-  } else {
-    document.getElementById("checkAddress").innerHTML = '';
+  const inputValue1 = document.getElementById("searchAddressBox").value;
+  const inputValue2 = document.getElementById("searchAddressBox_kinkyu").value;
+  if (inputValue1.length > 0) {
+    if (!(inputValue1.match(/^[0-9]+$/)) || !(inputValue1.length === 7)) {
+      document.getElementById("checkAddress").innerHTML = "<span style='color: red;'>半角数字7桁で入力してください！</span>";
+    } else {
+      document.getElementById("checkAddress").innerHTML = '';
+    }
+  }
+  if (inputValue2.length > 0) {
+    if (!(inputValue2.match(/^[0-9]+$/)) || !(inputValue2.length === 7)) {
+      document.getElementById("checkAddress_kinkyu").innerHTML = "<span style='color: red;'>半角数字7桁で入力してください！</span>";
+    } else {
+      document.getElementById("checkAddress_kinkyu").innerHTML = '';
+    }
   }
 }
 
