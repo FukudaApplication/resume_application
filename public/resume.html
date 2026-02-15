@@ -77,7 +77,7 @@
                         <input type="number" id="searchAddressBox" class="textbox address_textbox"
                             placeholder="例:1638001(ﾊｲﾌﾝなし)" onkeyup="inputAddressCheck ()">
                     </label>
-                    <button type="button" onclick="searchAddress ()">探す</button>
+                    <button type="button" onclick="searchAddress()">探す</button>
                 </div>
                 <div id="checkAddress"></div>
                 <div class="form-input-group">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-input-group">
                     <label for="banti_hiragana">番地(ひらがな)
-                        <input type="text" class="textbox" if="banti" placeholder="例:１ばんち">
+                        <input type="text" class="textbox" id="banti_hiragana" placeholder="例:１ばんち">
                     </label>
                 </div>
                 <div class="form-input-group">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="form-input-group">
                     <label for="banti">番地
-                        <input type="text" class="textbox" if="banti" placeholder="例:１番地">
+                        <input type="text" class="textbox" id="banti" placeholder="例:１番地">
                     </label>
                 </div>
             </div>
@@ -218,8 +218,48 @@
 
     <script src="script.js"></script>
     <script>
+        // 半角カタカナを全角カタカナに変換する関数
+        function hankana2Zenkana(str) {
+            // 半角カタカナと全角カタカナの対応マップ
+            let kanaMap = {
+                'ｶﾞ': 'ガ', 'ｷﾞ': 'ギ', 'ｸﾞ': 'グ', 'ｹﾞ': 'ゲ', 'ｺﾞ': 'ゴ',
+                'ｻﾞ': 'ザ', 'ｼﾞ': 'ジ', 'ｽﾞ': 'ズ', 'ｾﾞ': 'ゼ', 'ｿﾞ': 'ゾ',
+                'ﾀﾞ': 'ダ', 'ﾁﾞ': 'ヂ', 'ﾂﾞ': 'ヅ', 'ﾃﾞ': 'デ', 'ﾄﾞ': 'ド',
+                'ﾊﾞ': 'バ', 'ﾋﾞ': 'ビ', 'ﾌﾞ': 'ブ', 'ﾍﾞ': 'ベ', 'ﾎﾞ': 'ボ',
+                'ﾊﾟ': 'パ', 'ﾋﾟ': 'ピ', 'ﾌﾟ': 'プ', 'ﾍﾟ': 'ペ', 'ﾎﾟ': 'ポ',
+                'ｳﾞ': 'ヴ', 'ﾜﾞ': 'ヷ', 'ｦﾞ': 'ヺ',
+                'ｱ': 'ア', 'ｲ': 'イ', 'ｳ': 'ウ', 'ｴ': 'エ', 'ｵ': 'オ',
+                'ｶ': 'カ', 'ｷ': 'キ', 'ｸ': 'ク', 'ｹ': 'ケ', 'ｺ': 'コ',
+                'ｻ': 'サ', 'ｼ': 'シ', 'ｽ': 'ス', 'ｾ': 'セ', 'ｿ': 'ソ',
+                'ﾀ': 'タ', 'ﾁ': 'チ', 'ﾂ': 'ツ', 'ﾃ': 'テ', 'ﾄ': 'ト',
+                'ﾅ': 'ナ', 'ﾆ': 'ニ', 'ﾇ': 'ヌ', 'ﾈ': 'ネ', 'ﾉ': 'ノ',
+                'ﾊ': 'ハ', 'ﾋ': 'ヒ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
+                'ﾏ': 'マ', 'ﾐ': 'ミ', 'ﾑ': 'ム', 'ﾒ': 'メ', 'ﾓ': 'モ',
+                'ﾔ': 'ヤ', 'ﾕ': 'ユ', 'ﾖ': 'ヨ',
+                'ﾗ': 'ラ', 'ﾘ': 'リ', 'ﾙ': 'ル', 'ﾚ': 'レ', 'ﾛ': 'ロ',
+                'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
+                'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
+                'ｯ': 'ッ', 'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
+                '｡': '。', '､': '、', 'ｰ': 'ー', '｢': '「', '｣': '」', '･': '・'
+            };
+
+            // 正規表現で濁点付き文字、または単一の半角文字をマッチさせる
+            var reg = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g');
+
+            // 置換処理
+            return str.replace(reg, function (match) {
+                return kanaMap[match];
+            });
+        }
+        // カタカナからひらがなにする
+        function katakanaToHiragana(str) {
+            return str.replace(/[\u30a1-\u30f6]/g, function (match) {
+                return String.fromCharCode(match.charCodeAt(0) - 0x60);
+            }).replace(/ー/g, 'ー');
+        }
         // 郵便番号から住所を検索する
-        async function searchAddress(zipcode) {
+        async function searchAddress() {
+            const zipcode = document.getElementById("searchAddressBox").value;
             const url = `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`;
 
             try {
@@ -231,8 +271,9 @@
                     // 漢字
                     document.getElementById('addressForm').value = result.address1 + result.address2 + result.address3;
 
-                    // ふりがな（カタカナ）
-                    document.getElementById('address_hiragana').value = result.kana1 + result.kana2 + result.kana3;
+                    // ふりがな（ひらがな）
+                    const address = result.kana1 + result.kana2 + result.kana3;
+                    document.getElementById('address_hiragana').value = katakanaToHiragana(hankana2Zenkana(address));
                 }
             } catch (error) {
                 console.error('住所取得エラー:', error);
@@ -304,9 +345,14 @@
             const birth_value = formatDateToJapanese(birth_date_value);
 
             const gender_value = document.querySelector('input[name="gender"]:checked');
-            if (gender_value) {
-                console.log(gender_value.value); // 選択された値を取得
-            }
+
+            const address_postcode_value = "現住所 〒" + document.getElementById('searchAddressBox').value.slice(0, 3) + '-' + document.getElementById('searchAddressBox').value.slice(-4);
+            const address_value = document.getElementById('addressForm').value + document.getElementById('banti').value;
+            const address_hiragana_value = document.getElementById('address_hiragana').value + document.getElementById('banti_hiragana').value;
+
+            const tel_value = "電話" + document.getElementById('searchTelBox').value;
+
+            const email_value = "E-mail" + "\n\n" + document.getElementById('searchMailBox').value;
 
             try {
                 const writeResponse = await fetch('/api/write-file', {
@@ -318,6 +364,11 @@
                         name_kanji: name_kanji_value,
                         birth_value: birth_value,
                         gender_value: gender_value.value,
+                        address_postcode_value: address_postcode_value,
+                        address_value: address_value,
+                        address_hiragana_value: address_hiragana_value,
+                        tel_value: tel_value,
+                        email_value: email_value,
                         filename: '履歴書.xlsx'
                     })
                 });
