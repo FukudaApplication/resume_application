@@ -102,6 +102,28 @@
                 </div>
             </div>
             <div class="form-row">
+                <!-- 電話番号入力欄 -->
+                <div class="form-label">
+                    <label for="searchTelBox">電話番号</label>
+                </div>
+                <div class="form-input-group">
+                    <input type="number" id="searchTelBox" name="tell" class="textbox" placeholder="例:0123456789"
+                        onkeyup="inputTelCheck ()">
+                </div>
+                <div id="checkTel"></div>
+            </div>
+            <div class="form-row">
+                <!-- メールアドレス入力欄 -->
+                <div class="form-label">
+                    <label for="searchMailBox">メールアドレス</label>
+                </div>
+                <div class="form-input-group">
+                    <input type="mail" id="searchMailBox" name="email" class="textbox" placeholder="例:sample@co.jp"
+                        onkeyup="inputMailCheck ()">
+                </div>
+                <div id="checkMail"></div>
+            </div>
+            <div class="form-row">
                 <!-- 緊急連絡先住所入力欄 -->
                 <div class="form-label">
                     <label for="address">緊急連絡先住所</label>
@@ -136,26 +158,26 @@
                 </div>
             </div>
             <div class="form-row">
-                <!-- 電話番号入力欄 -->
+                <!-- 緊急連絡先電話番号入力欄 -->
                 <div class="form-label">
-                    <label for="searchTelBox">電話番号</label>
+                    <label for="searchTelBox_kinkyu">緊急連絡先電話番号</label>
                 </div>
                 <div class="form-input-group">
-                    <input type="number" id="searchTelBox" name="tell" class="textbox" placeholder="例:0123456789"
+                    <input type="number" id="searchTelBox_kinkyu" name="tell" class="textbox" placeholder="例:0123456789"
                         onkeyup="inputTelCheck ()">
                 </div>
-                <div id="checkTel"></div>
+                <div id="checkTel_kinkyu"></div>
             </div>
             <div class="form-row">
-                <!-- メールアドレス入力欄 -->
+                <!-- 緊急連絡先メールアドレス入力欄 -->
                 <div class="form-label">
-                    <label for="searchMailBox">メールアドレス</label>
+                    <label for="searchMailBox_kinkyu">緊急連絡先メールアドレス</label>
                 </div>
                 <div class="form-input-group">
-                    <input type="mail" id="searchMailBox" name="email" class="textbox" placeholder="例:sample@co.jp"
-                        onkeyup="inputMailCheck ()">
+                    <input type="mail" id="searchMailBox_kinkyu" name="email" class="textbox"
+                        placeholder="例:sample@co.jp" onkeyup="inputMailCheck ()">
                 </div>
-                <div id="checkMail"></div>
+                <div id="checkMail_kinkyu"></div>
             </div>
             <!-- 写真アップロード欄 -->
             <div class="form-row">
@@ -326,6 +348,14 @@
 
             const email_value = "E-mail" + "\n\n" + document.getElementById('searchMailBox').value;
 
+            const emergency_address_postcode_value = "現住所 〒" + document.getElementById('searchAddressBox_kinkyu').value.slice(0, 3) + '-' + document.getElementById('searchAddressBox_kinkyu').value.slice(-4) + "     （現住所以外に連絡を希望する場合のみ記入）";
+            const emergency_address_value = document.getElementById('addressForm_kinkyu').value + document.getElementById('banti_kinkyu').value;
+            const emergency_address_hiragana_value = document.getElementById('address_hiragana_kinkyu').value + document.getElementById('banti_hiragana_kinkyu').value;
+
+            const emergency_tel_value = "電話" + document.getElementById('searchTelBox_kinkyu').value;
+
+            const emergency_email_value = "E-mail" + "\n\n" + document.getElementById('searchMailBox_kinkyu').value;
+
             try {
                 const writeResponse = await fetch('/api/write-file', {
                     method: 'POST',
@@ -341,7 +371,12 @@
                         address_hiragana_value: address_hiragana_value,
                         tel_value: tel_value,
                         email_value: email_value,
-                        filename: '履歴書.xlsx'
+                        filename: '履歴書.xlsx',
+                        emergency_address_postcode_value: emergency_address_postcode_value,
+                        emergency_address_value: emergency_address_value,
+                        emergency_address_hiragana_value: emergency_address_hiragana_value,
+                        emergency_tel_value: emergency_tel_value,
+                        emergency_email_value: emergency_email_value
                     })
                 });
 

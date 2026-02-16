@@ -168,21 +168,41 @@ function inputAddressCheck() {
 
 // 電話番号の入力エラー
 function inputTelCheck() {
-  const inputValue = document.getElementById("searchTelBox").value;
-  if (!(inputValue.match(/^[0-9]+$/)) || !(inputValue.length === 11)) {
-    document.getElementById("checkTel").innerHTML = "<span style='color: red;'>半角数字11桁で入力してください！</span>";
-  } else {
-    document.getElementById("checkTel").innerHTML = '';
+  const inputValue1 = document.getElementById("searchTelBox").value;
+  const inputValue2 = document.getElementById("searchTelBox_kinkyu").value;
+  if (inputValue1.length > 0) {
+    if (!(inputValue1.match(/^[0-9]+$/)) || !(inputValue1.length === 11)) {
+      document.getElementById("checkTel").innerHTML = "<span style='color: red;'>半角数字11桁で入力してください！</span>";
+    } else {
+      document.getElementById("checkTel").innerHTML = '';
+    }
+  }
+  if (inputValue2.length > 0) {
+    if (!(inputValue2.match(/^[0-9]+$/)) || !(inputValue2.length === 11)) {
+      document.getElementById("checkTel_kinkyu").innerHTML = "<span style='color: red;'>半角数字11桁で入力してください！</span>";
+    } else {
+      document.getElementById("checkTel_kinkyu").innerHTML = '';
+    }
   }
 }
 
 // メールアドレスの入力エラー
 function inputMailCheck() {
-  const inputValue = document.getElementById("searchMailBox").value;
-  if (!inputValue.match(/.+@.+\..+/)) {
-    document.getElementById("checkMail").innerHTML = "<span style='color: red;'>正しいメールアドレスを入力してください！</span>";
-  } else {
-    document.getElementById("checkMail").innerHTML = '';
+  const inputValue1 = document.getElementById("searchMailBox").value;
+  const inputValue2 = document.getElementById("searchMailBox_kinkyu").value;
+  if (inputValue1.length > 0) {
+    if (!inputValue1.match(/.+@.+\..+/)) {
+      document.getElementById("checkMail").innerHTML = "<span style='color: red;'>正しいメールアドレスを入力してください！</span>";
+    } else {
+      document.getElementById("checkMail").innerHTML = '';
+    }
+  }
+  if (inputValue2.length > 0) {
+    if (!inputValue2.match(/.+@.+\..+/)) {
+      document.getElementById("checkMail_kinkyu").innerHTML = "<span style='color: red;'>正しいメールアドレスを入力してください！</span>";
+    } else {
+      document.getElementById("checkMail_kinkyu").innerHTML = '';
+    }
   }
 }
 
