@@ -13,7 +13,8 @@ app.post('/api/write-file', async (req, res) => {
     try {
         const { current_date_value, name_hiragana, name_kanji, birth_value, gender_value,
             address_postcode_value, address_value, address_hiragana_value, tel_value, email_value,
-            filename } = req.body;
+            emergency_address_postcode_value, emergency_address_value, emergency_address_hiragana_value,
+            emergency_tel_value, emergency_email_value, filename } = req.body;
 
         const templatePath = path.join(__dirname, 'rirekisyo_a4_mhlw.xlsx');
         const outputPath = path.join(__dirname, filename);
@@ -34,12 +35,16 @@ app.post('/api/write-file', async (req, res) => {
         worksheet.getCell('B10').value = birth_value;
         worksheet.getCell('B10').alignment = { vertical: 'middle', horizontal: 'center' };
         worksheet.getCell('H11').value = gender_value;
-        console.log(address_postcode_value);
         worksheet.getCell('B13').value = address_postcode_value;
         worksheet.getCell('C15').value = address_value;
         worksheet.getCell('C12').value = address_hiragana_value;
         worksheet.getCell('I12').value = tel_value;
         worksheet.getCell('I13').value = email_value;
+        worksheet.getCell('B19').value = emergency_address_postcode_value;
+        worksheet.getCell('B20').value = emergency_address_value;
+        worksheet.getCell('D17').value = emergency_address_hiragana_value;
+        worksheet.getCell('I17').value = emergency_tel_value;
+        worksheet.getCell('I19').value = emergency_email_value;
 
         // 上書き保存
         await workbook.xlsx.writeFile(outputPath);
