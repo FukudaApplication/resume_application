@@ -45,6 +45,8 @@ app.post('/api/write-file', async (req, res) => {
         worksheet.getCell('D17').value = emergency_address_hiragana_value;
         worksheet.getCell('I17').value = emergency_tel_value;
         worksheet.getCell('I19').value = emergency_email_value;
+        worksheet.getCell('D26').value = "学　　　歴";
+        worksheet.getCell('D26').alignment = { vertical: 'middle', horizontal: 'center' };
 
         // 上書き保存
         await workbook.xlsx.writeFile(outputPath);
