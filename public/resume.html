@@ -356,6 +356,7 @@
 
             const emergency_email_value = "E-mail" + "\n\n" + document.getElementById('searchMailBox_kinkyu').value;
 
+
             try {
                 const writeResponse = await fetch('/api/write-file', {
                     method: 'POST',
