@@ -274,6 +274,12 @@
 
     <script src="script.js"></script>
     <script>
+        body: JSON.stringify({
+            // ...既存のフィールド...
+            image_value: imageBase64,
+            image_extension: imageFile ? imageFile.type.split('/')[1] : null
+        })
+
         // 画像取得
         const imageInput = document.getElementById('imageInput');
         const preview = document.getElementById('preview');
@@ -356,6 +362,24 @@
 
             const emergency_email_value = "E-mail" + "\n\n" + document.getElementById('searchMailBox_kinkyu').value;
 
+            // exportCSV関数内のimage_value部分を修正
+            const imageFile = document.getElementById('imageInput').files[0];
+
+            // Base64変換（非同期）
+            const imageBase64 = await new Promise((resolve) => {
+                if (!imageFile) {
+                    resolve(null);
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    // "data:image/jpeg;base64,..." の形式から base64部分だけ取り出す
+                    const base64 = e.target.result.split(',')[1];
+                    resolve(base64);
+                };
+                reader.readAsDataURL(imageFile);
+            });
+
 
             try {
                 const writeResponse = await fetch('/api/write-file', {
@@ -377,7 +401,9 @@
                         emergency_address_value: emergency_address_value,
                         emergency_address_hiragana_value: emergency_address_hiragana_value,
                         emergency_tel_value: emergency_tel_value,
-                        emergency_email_value: emergency_email_value
+                        emergency_email_value: emergency_email_value,
+                        image_value: imageBase64,
+                        image_extension: imageFile ? imageFile.type.split('/')[1] : null
                     })
                 });
 

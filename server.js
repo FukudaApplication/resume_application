@@ -14,7 +14,7 @@ app.post('/api/write-file', async (req, res) => {
         const { current_date_value, name_hiragana, name_kanji, birth_value, gender_value,
             address_postcode_value, address_value, address_hiragana_value, tel_value, email_value,
             emergency_address_postcode_value, emergency_address_value, emergency_address_hiragana_value,
-            emergency_tel_value, emergency_email_value, filename } = req.body;
+            emergency_tel_value, emergency_email_value, image_value, image_extension, filename } = req.body;
 
         const templatePath = path.join(__dirname, 'rirekisyo_a4_mhlw.xlsx');
         const outputPath = path.join(__dirname, filename);
@@ -48,8 +48,24 @@ app.post('/api/write-file', async (req, res) => {
         worksheet.getCell('D26').value = "学　　　歴";
         worksheet.getCell('D26').alignment = { vertical: 'middle', horizontal: 'center' };
 
-        // 上書き保存
+        // Excelへの書き込み処理の最後に追加
+        if (image_value && image_extension) {
+            const imageBuffer = Buffer.from(image_value, 'base64');
+
+            const imageId = workbook.addImage({
+                buffer: imageBuffer,
+                extension: image_extension,
+            });
+
+            worksheet.addImage(imageId, {
+                tl: { col: 8, row: 2 },
+                br: { col: 10, row: 5 },
+                editAs: 'oneCell',
+            });
+        }
+
         await workbook.xlsx.writeFile(outputPath);
+
 
         res.json({ success: true, filename });
 
