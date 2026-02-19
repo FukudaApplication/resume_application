@@ -31,6 +31,7 @@ app.post('/api/write-file', async (req, res) => {
 
         worksheet.getCell('E3').value = current_date_value;
         worksheet.getCell('D5').value = name_hiragana;
+        worksheet.getCell('D5').alignment = { vertical: 'middle', horizontal: 'left' };
         worksheet.getCell('B7').value = name_kanji;
         worksheet.getCell('B10').value = birth_value;
         worksheet.getCell('B10').alignment = { vertical: 'middle', horizontal: 'center' };
