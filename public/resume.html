@@ -191,18 +191,18 @@
             <div id="educationList">
                 <!-- 学校名入力欄 -->
                 <label for="school_name">学校名</label>
-                <input type="text" id="school_name" name="school_name" class="textbox" placeholder="例:〇〇学校"></br>
+                <input type="text" id="school_name_0" name="school_name_0" class="textbox" placeholder="例:〇〇学校"></br>
                 <!-- 学部学科名入力欄 -->
                 <label for="major_name">学部学科名</label>
-                <input type="text" id="major_name" name="major_name" class="textbox" placeholder="例:〇〇学部　〇〇学科"></br>
+                <input type="text" id="major_name_0" name="major_name_0" class="textbox" placeholder="例:〇〇学部　〇〇学科"></br>
                 <!-- 入学年月選択欄 -->
                 <label for="school_enroll">入学年月</label>
-                <input type="date" /></br>
+                <input type="date" id="school_enroll_0" name="school_enroll_0" /></br>
                 <!-- 卒業年月選択欄 -->
                 <label for="school_enroll">卒業年月</label>
-                <input type="date" /></br>
+                <input type="date" id="school_graduate_0" name="school_graduate_0" /></br>
                 <label for="educationNote">備考</label>
-                <input type="text" class="textbox" name="educationNote[]" placeholder="例：中退など" />
+                <input type="text" class="textbox" id="school_detail_0" name="educationNote[]" placeholder="例：中退など" />
             </div>
             <div>
                 <button type="button" class="btn-add" onclick="addEducationItem()">
@@ -274,12 +274,6 @@
 
     <script src="script.js"></script>
     <script>
-        body: JSON.stringify({
-            // ...既存のフィールド...
-            image_value: imageBase64,
-            image_extension: imageFile ? imageFile.type.split('/')[1] : null
-        })
-
         // 画像取得
         const imageInput = document.getElementById('imageInput');
         const preview = document.getElementById('preview');
@@ -380,6 +374,22 @@
                 reader.readAsDataURL(imageFile);
             });
 
+            const gakureki_ary = [];
+
+            // educationList内のschool_name_*要素を全て取得する
+            const educationList = document.getElementById('educationList');
+            const schoolInputs = educationList.querySelectorAll('input[id^="school_name_"]');
+
+            schoolInputs.forEach((el) => {
+                const i = el.id.replace('school_name_', '');
+                gakureki_ary.push({
+                    school: el.value,
+                    major: document.getElementById('major_name_' + i)?.value ?? '',
+                    enroll_date: document.getElementById('school_enroll_' + i)?.value ?? '',
+                    graduate_date: document.getElementById('school_graduate_' + i)?.value ?? '',
+                    detail: document.getElementById('school_detail_' + i)?.value ?? ''
+                });
+            });
 
             try {
                 const writeResponse = await fetch('/api/write-file', {
@@ -403,7 +413,8 @@
                         emergency_tel_value: emergency_tel_value,
                         emergency_email_value: emergency_email_value,
                         image_value: imageBase64,
-                        image_extension: imageFile ? imageFile.type.split('/')[1] : null
+                        image_extension: imageFile ? imageFile.type.split('/')[1] : null,
+                        gakureki_ary: gakureki_ary
                     })
                 });
 

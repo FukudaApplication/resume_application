@@ -14,7 +14,8 @@ app.post('/api/write-file', async (req, res) => {
         const { current_date_value, name_hiragana, name_kanji, birth_value, gender_value,
             address_postcode_value, address_value, address_hiragana_value, tel_value, email_value,
             emergency_address_postcode_value, emergency_address_value, emergency_address_hiragana_value,
-            emergency_tel_value, emergency_email_value, image_value, image_extension, filename } = req.body;
+            emergency_tel_value, emergency_email_value, image_value, image_extension, gakureki_ary,
+            filename } = req.body;
 
         const templatePath = path.join(__dirname, 'rirekisyo_a4_mhlw.xlsx');
         const outputPath = path.join(__dirname, filename);
@@ -48,6 +49,20 @@ app.post('/api/write-file', async (req, res) => {
         worksheet.getCell('I19').value = emergency_email_value;
         worksheet.getCell('D26').value = "学　　　歴";
         worksheet.getCell('D26').alignment = { vertical: 'middle', horizontal: 'center' };
+
+        gakureki_ary.forEach((gakureki, index) => {
+            const row = 27 + index;
+            worksheet.getCell(`B${row}`).value = gakureki.school;
+            worksheet.getCell(`B${row}`).alignment = { vertical: 'middle', horizontal: 'left' };
+            worksheet.getCell(`D${row}`).value = gakureki.major;
+            worksheet.getCell(`D${row}`).alignment = { vertical: 'middle', horizontal: 'left' };
+            worksheet.getCell(`F${row}`).value = gakureki.enroll_date;
+            worksheet.getCell(`F${row}`).alignment = { vertical: 'middle', horizontal: 'center' };
+            worksheet.getCell(`H${row}`).value = gakureki.graduate_date;
+            worksheet.getCell(`H${row}`).alignment = { vertical: 'middle', horizontal: 'center' };
+            worksheet.getCell(`J${row}`).value = gakureki.detail;
+            worksheet.getCell(`J${row}`).alignment = { vertical: 'middle', horizontal: 'left' };
+        });
 
         // Excelへの書き込み処理の最後に追加
         if (image_value && image_extension) {
