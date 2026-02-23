@@ -206,6 +206,8 @@ function inputMailCheck() {
   }
 }
 
+let gakureki_length = 1;
+
 //欄の追加
 // 学歴アイテムを追加する関数
 function addEducationItem() {
@@ -215,25 +217,27 @@ function addEducationItem() {
   newItem.innerHTML = `
         <!-- 学校名入力欄 -->
             <label for="school_name">学校名</label>
-            <input type="text" id="school_name" name="school_name" class="textbox" placeholder="例:〇〇学校"></br> 
+            <input type="text" id="school_name_${gakureki_length}" name="school_name" class="textbox" placeholder="例:〇〇学校"></br> 
             <!-- 学部学科名入力欄 -->
             <label for="major_name">学部学科名</label>
-            <input type="text" id="major_name" name="major_name" class="textbox" placeholder="例:〇〇学部　〇〇学科"></br> 
+            <input type="text" id="major_name_${gakureki_length}" name="major_name" class="textbox" placeholder="例:〇〇学部　〇〇学科"></br> 
             <!-- 入学年月選択欄 -->
             <label for="school_enroll">入学年月</label>
-            <input type="date"/></br> 
+            <input type="date" id="school_enroll_${gakureki_length}"/></br> 
             <!-- 卒業年月選択欄 -->
             <label for="school_enroll">卒業年月</label>
-            <input type="date"/></br> 
+            <input type="date" id="school_graduate_${gakureki_length}"/></br> 
             <label for="educationNote">備考</label>
             <input
             type="text"
             class="textbox"
             name="educationNote[]"
             placeholder="例：中退など"
+            id="school_detail_${gakureki_length}"
             /></br>
         <button type="button" class="btn-remove" onclick="removeEducationItem(this)">削除</button></br>
     `;
+  gakureki_length++;
   educationList.appendChild(newItem);
 }
 
