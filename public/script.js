@@ -1,3 +1,5 @@
+let gakureki_length = 1;
+
 // 新規登録
 async function handleSignUp() {
 
@@ -205,8 +207,6 @@ function inputMailCheck() {
     }
   }
 }
-
-let gakureki_length = 1;
 
 //欄の追加
 // 学歴アイテムを追加する関数
