@@ -198,11 +198,15 @@
                 <!-- 入学年月選択欄 -->
                 <label for="school_enroll">入学年月</label>
                 <input type="date" id="school_enroll_0" name="school_enroll_0" /></br>
+                <label for="educationNote">備考</label>
+                <input type="text" class="textbox" id="school_enroll_detail_0" name="educationNote[]"
+                    placeholder="例：入学、転入など" /><br>
                 <!-- 卒業年月選択欄 -->
                 <label for="school_enroll">卒業年月</label>
                 <input type="date" id="school_graduate_0" name="school_graduate_0" /></br>
                 <label for="educationNote">備考</label>
-                <input type="text" class="textbox" id="school_detail_0" name="educationNote[]" placeholder="例：中退など" />
+                <input type="text" class="textbox" id="school_graduate_detail_0" name="educationNote[]"
+                    placeholder="例：卒業、中退など" />
             </div>
             <div>
                 <button type="button" class="btn-add" onclick="addEducationItem()">
