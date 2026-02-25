@@ -224,6 +224,9 @@ function addEducationItem() {
             <!-- 入学年月選択欄 -->
             <label for="school_enroll">入学年月</label>
             <input type="date" id="school_enroll_${gakureki_length}"/></br> 
+            <label for="educationNote">備考</label>
+            <input type="text" class="textbox" id="school_enroll_detail_${gakureki_length}" name="educationNote[]"
+                placeholder="例：入学、転入など" /></br>
             <!-- 卒業年月選択欄 -->
             <label for="school_enroll">卒業年月</label>
             <input type="date" id="school_graduate_${gakureki_length}"/></br> 
@@ -233,7 +236,7 @@ function addEducationItem() {
             class="textbox"
             name="educationNote[]"
             placeholder="例：中退など"
-            id="school_detail_${gakureki_length}"
+            id="school_graduate_detail_${gakureki_length}"
             /></br>
         <button type="button" class="btn-remove" onclick="removeEducationItem(this)">削除</button></br>
     `;
