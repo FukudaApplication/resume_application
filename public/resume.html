@@ -396,6 +396,8 @@
                 });
             });
 
+            const reason_value = document.getElementById('Motivation').value;
+
             try {
                 const writeResponse = await fetch('/api/write-file', {
                     method: 'POST',
@@ -419,7 +421,8 @@
                         emergency_email_value: emergency_email_value,
                         image_value: imageBase64,
                         image_extension: imageFile ? imageFile.type.split('/')[1] : null,
-                        gakureki_ary: gakureki_ary
+                        gakureki_ary: gakureki_ary,
+                        reason: reason_value
                     })
                 });
 
