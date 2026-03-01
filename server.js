@@ -15,7 +15,7 @@ app.post('/api/write-file', async (req, res) => {
             address_postcode_value, address_value, address_hiragana_value, tel_value, email_value,
             emergency_address_postcode_value, emergency_address_value, emergency_address_hiragana_value,
             emergency_tel_value, emergency_email_value, image_value, image_extension, gakureki_ary,
-            filename } = req.body;
+            reason, filename } = req.body;
 
         const templatePath = path.join(__dirname, 'rirekisyo_a4_mhlw.xlsx');
         const outputPath = path.join(__dirname, filename);
@@ -52,11 +52,22 @@ app.post('/api/write-file', async (req, res) => {
 
         gakureki_ary.forEach((gakureki, index) => {
             const row = 28 + index;
-            worksheet.getCell(`D${row}`).value = gakureki.school + " " + gakureki.major + " " + gakureki.detail;
+            worksheet.getCell(`D${row}`).value = gakureki.school + " " + gakureki.major + " " + gakureki.enroll_detail;
             worksheet.getCell(`D${row}`).alignment = { vertical: 'middle', horizontal: 'center' };
             worksheet.getCell(`B${row}`).value = gakureki.enroll_date;
             worksheet.getCell(`B${row}`).alignment = { vertical: 'middle', horizontal: 'center' };
         });
+
+        gakureki_ary.forEach((gakureki, index) => {
+            const row = 30 + index;
+            worksheet.getCell(`D${row}`).value = gakureki.school + " " + gakureki.major + " " + gakureki.graduate_detail;
+            worksheet.getCell(`D${row}`).alignment = { vertical: 'middle', horizontal: 'center' };
+            worksheet.getCell(`B${row}`).value = gakureki.graduate_date;
+            worksheet.getCell(`B${row}`).alignment = { vertical: 'middle', horizontal: 'center' };
+        });
+
+        worksheet.getCell('L33').value = reason;
+        worksheet.getCell('L33').alignment = { vertical: 'top', wrapText: true };
 
         // Excelへの書き込み処理の最後に追加
         if (image_value && image_extension) {
